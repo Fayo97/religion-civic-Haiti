@@ -24,14 +24,14 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r load-pkgs, echo =TRUE, include=TRUE, warning=FALSE, message=FALSE}
 suppressPackageStartupMessages (library(foreign))
-library(data.table)
-library(tidyverse)
-library(broom)
-library(skimr)
-library(janitor)
+suppressPackageStartupMessages (library(data.table))
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages (library(broom))
+suppressPackageStartupMessages (library(skimr))
+suppressPackageStartupMessages (library(janitor))
 # install.packages("devtools")
 # devtools::install_github("thomasp85/patchwork")
-library(patchwork)
+suppressPackageStartupMessages (library(patchwork))
 ```
 <br>
 
@@ -69,7 +69,7 @@ ncomplete/numo
 #  this shows that every row is complete and that there are no missing values. but that's grossly misleading. 
 
 # install.packages("naniar")
-library(naniar)
+suppressPackageStartupMessages (library(naniar))
 ## visualize missingness
 # vis_miss(bagay[1:100])  # uncomment and play with the range as needed
 
@@ -227,10 +227,10 @@ str(bagay$secular)
 # names(bagay)
 
 #  prelim. exploratory plot 0.1
-ggplot(bagay, aes(x=secular, na.rm = TRUE)) + 
-  geom_bar(fill=c("navy", "brown")) + 
-  labs(x= "membership in secular organization") +
-  theme_bw()
+# ggplot(bagay, aes(x=secular, na.rm = TRUE)) + 
+#   geom_bar(fill=c("navy", "brown")) + 
+#   labs(x= "membership in secular organization") +
+#   theme_bw()
 
 # ok
 ```
@@ -316,21 +316,16 @@ ftab(bagay$V89)
 
 **QUESTION**: _"When elections take place, do you vote always, usually or never? Please tell me separately for each of the following levels"_
 
-+ Let's code it as follows:
-  + "always" or "usually" as 1; 
-  + anything else as 0. 
-  + No answer is NA
+        1. Let's code it as follows:
 
-+ Be sure to code both variables: *national* and *local political* participation  
+             - "always" or "usually" as 1; 
+             - anything else as 0. 
+             -  No answer is NA
+
+        2. Be sure to code both variables: *national* and *local political* participation  
 
 <br>
 ```{r voting, warning=FALSE, echo = TRUE, results='hide'}
-
-# QUESTION: ”When elections take place, do you vote always, usually or never? Please tell me separately for each of the following levels”
-
-# in R: code "always" or "usually" as 1; anything else as 0. No answer is NA
-
-# Be sure to code both variables: national and local political participation
 
 # V226. Local level 
 bagay$voted_local <- NA
@@ -351,12 +346,12 @@ ftab(bagay$V227)
 
 ## Frequency of Religious Service Attendance
 
-“Apart from weddings and funerals, how often do you attend religious services these days?”  
-
-- 1 = once a week or more than once a week,  
-- 0 = once a month, only on special holy days, once a year, less often, never, practically never.   
+<br>
 
 `V145. Apart from weddings and funerals, about how often do you attend religious services these days?`
+
+        1 = once a week or more than once a week,  
+        0 = once a month, only on special holy days, once a year, less often, never, practically never.   
 
 <br>
 ```{r church-attendance, warning=FALSE, echo = TRUE, results='hide'}
@@ -380,13 +375,15 @@ ftab(bagay$V145)
 # ok. 
 
 ```
+<br>
 
 ## Religious Organization Membership
 
-“Now I am going to read off a list of voluntary organizations. For each organization, could you tell me whether you are an active member, an inactive member or not a member of that type of organization?”  
+`“Now I am going to read off a list of voluntary organizations. For each organization,` 
+`could you tell me whether you are an active member, an inactive member or not a member of that type of organization?”`  
 
-- 1 = a member (active or inactive); 
-- 0 = not a member of that type of organization.
+          1 = a member (active or inactive); 
+          0 = not a member of that type of organization.
 
 <br>
 ```{r relig-member, warning=FALSE, echo = TRUE, results='hide'}
@@ -404,10 +401,10 @@ ftab(bagay$V25)
 ftab(bagay$relig_member)
 
 #  prelim. exploratory plot 0.2
-ggplot(bagay, aes(x=relig_member, na.rm = TRUE)) + 
-  geom_bar(fill=c("navy", "orange3")) + 
-  labs(x= "membership in a religious organization") +
-  theme_bw()
+# ggplot(bagay, aes(x=relig_member, na.rm = TRUE)) + 
+#   geom_bar(fill=c("navy", "orange3")) + 
+#   labs(x= "membership in a religious organization") +
+#   theme_bw()
 #  ok
 ```
 
@@ -417,16 +414,16 @@ ggplot(bagay, aes(x=relig_member, na.rm = TRUE)) +
 
 `Question & Raw categories`:  
 
-__V146. Apart from weddings and funerals, about how often do you pray? (Code one answer):__
+`V146. Apart from weddings and funerals, about how often do you pray? (Code one answer):__`
 
-- 1 Several times a day 
-- 2 Once a day
--  3 Several times each week
-- 4 Only when attending religious services
-- 5 Only on special holy days
-- 6 Once a year
-- 7 Less often
-- 8 Never, practically never
+        1. Several times a day 
+        2. Once a day
+        3. Several times each week
+        4. Only when attending religious services
+        5. Only on special holy days
+        6. Once a year
+        7. Less often
+        8. Never, practically never
 
 ```{r prayer, echo=TRUE, warning=FALSE, results='hide'}
 # Recode:
@@ -459,9 +456,15 @@ ftab(bagay$V146)
 
 ## Social Trust
 
-`“Generally speaking, would you say that most people can be trusted (1) or that you need to be very careful in dealing with people (0)?”`  
+`“Generally speaking, would you say that most people can be trusted (1)` 
+`or that you need to be very careful in dealing with people (0)?”`  
 
-`V24. `
+<br>
+
+`V24.`   
+
+
+<br>
 ```{r trust, echo=TRUE, warning=FALSE, results='hide'}
 
 # V24. social trust 
@@ -483,10 +486,11 @@ ftab(bagay$V24)
 
 ## Tolerance  
 
- “Here is a list of qualities that children can be encouraged to learn at home. Which, if any, do you consider to be especially important?”  
+ `“Here is a list of qualities that children can be encouraged to learn at home.` 
+ `Which, if any, do you consider to be especially important?”`  
  
-+ 1 = mentioned “tolerance and respect for people”;
-+ 0 = did not mention.  
+         1 = mentioned “tolerance and respect for people”;  
+         0 = did not mention.  
 
 `V16:  Tolerance and respect for other people `  
 
@@ -515,12 +519,13 @@ ftab(bagay$V16)
 
 _Sex by observation_   
 
-+ 1 = female, 
-+ 0 = male        
+          1 = female, 
+          0 = male        
 
-`V240. (respondent’s sex by observation):
-`1 Male =======> becomes 0
-`2 Female =====> becomes 1
+`V240. (respondent’s sex by observation):`
+
+        1 Male =======> becomes 0
+        2 Female =====> becomes 1
 
 <br>
 ```{r female, echo=TRUE, warning=FALSE, results='hide'}
@@ -545,7 +550,8 @@ ftab(bagay$V240)
 
 ## Age (in years)  
 
-`V242. This means you are ____ years old (write in age in two digits).
+`V242. This means you are ____ years old (write in age in two digits).`
+
 
 ```{r age, echo=TRUE, warning=FALSE, results='hide'}
 
@@ -571,16 +577,17 @@ summary(bagay$V242)
 
 ## Income  
 
-`(preferred measure of SES)`
+            (preferred measure of SES)
 
-`“On this card is a scale of incomes on which 1 indicates the lowest income decile’ and 10 the ‘highest income decile in your country. We would like to know in what group your household is. Please, specify the appropriate number, counting all wages, salaries, pensions, and other incomes that come in.”`
-
-`V239. On this card is an income scale on which 1 indicates the lowest income group and 10 the highest income group in your country. We would like to know in what group your household is. Please, specify the appropriate number, counting all wages, salaries, pensions and other incomes that come in. (Code one number):   
+`V239. On this card is an income scale on which 1 indicates the lowest income group`
+`and 10 the highest income group in your country. We would like to know in what `
+`group your household is. Please, specify the appropriate number, counting all `
+`wages, salaries, pensions and other incomes that come in. (Code one number):`   
 
 <br>
 ```{r v239, eval = FALSE, echo = TRUE}
 
-# Lowest group <=================================> Highest group 
+# Lowest group <===========================================> Highest group 
 #     1 	  2	   3	 4  	 5  	6   	7   	8   	 9  	10 
 ```
 <br>
@@ -610,56 +617,280 @@ ftab(bagay$V239)
 # ok. 
 
 ```
-<br>
-
-
-
-
-
-
-
-
-
-
 
 <br>
 
-## NEXT ====> Education    
+## Education    
 
-“What is the highest educational level that you have attained?    
+`From page 20 of documentation`: 
 
-- 1=low;    
-- 2=medium;   
-- 3=high.  
+`V258. Weight variable (Provide a 4-digit weight variable to correct your sample `
+`to reflect national distributions of key variables. If no weighting is necessary,`
+`simply code each case as “1.” It is especially important to correct for education. `
+`For example, if your sample contains 10 percent more university-educated respondents`
+`as there are in the adult population, members of this group should be downweighted`
+`by 10 percent, giving them a weight of .90).`  
 
-**It’s very unclear how Sarkissian decided to code low/medium/high education here. She did not say how she coded it. Seems arbitrary. I can do my own, no ones cares, really!**    
 
-<br>
+        “What is the highest educational level that you have attained?    
 
-`V248. What is the highest educational level that you have attained?   
-
-**NOTE**: if respondent indicates to be a student, code highest level s/he expects to complete)`   
-
-<br>
-
-1. No formal education
-2. Incomplete primary school
-3. Complete primary school
-4. Incomplete secondary school: technical/vocational type
-5. Complete secondary school: technical/vocational type
-6. Incomplete secondary: university-preparatory type
-7. Complete secondary: university-preparatory type
-8. Some university-level education, without degree
-9. University-level education, with degree
+          1 = low;    
+          2 = medium;   
+          3 = high.  
+ 
+ 
+**It’s very unclear how Sarkissian decided to code low/medium/high education here. She did not say how she coded it. Seems arbitrary. I can do my own.**    
 
 <br>
 
+`V248. What is the highest educational level that you have attained?`   
 
+**NOTE**: if respondent indicates to be a student, code highest level s/he expects to complete) 
 
-#### Save data again (at this stage) so that we don't need to read it from raw data each time:
 <br>
-```{r warning=FALSE, include = TRUE, echo = TRUE}
-save(bagay, file="WVS-Haiti2016.csv")
+
+          1. No formal education
+          2. Incomplete primary school
+          3. Complete primary school
+          4. Incomplete secondary school: technical/vocational type
+          5. Complete secondary school: technical/vocational type
+          6. Incomplete secondary: university-preparatory type
+          7. Complete secondary: university-preparatory type
+          8. Some university-level education, without degree
+          9. University-level education, with degree
+
+
+<br>
+```{r educ, echo=TRUE, warning=FALSE, results='hide'}
+
+# V248. Education
+
+ftab(bagay$V248)
+# 
+# 1 = low;   ===========> No formal education | Incomplete primary school | Complete primary school 
+
+# 2 = medium; ==========>  Incomplete secondary school: technical/vocational type | Complete secondary school: technical/vocational type | Incomplete secondary: university-preparatory type
+
+# 3 = high =============> Complete secondary: university-preparatory type | Some university-level education, without degree | University-level education, with degree
+
+# 
+bagay$educ <- NA
+  
+bagay$educ[ bagay$V248 == "No formal education"
+               | bagay$V248 == "Incomplete primary school" 
+               | bagay$V248 == "Complete primary school"] <- 1 
+
+bagay$educ[ bagay$V248 == "Incomplete secondary school: technical/ vocational type" 
+               | bagay$V248 == "Complete secondary school: technical/ vocational type" 
+               | bagay$V248 == "Incomplete secondary school: university-preparatory type"] <- 2
+
+bagay$educ[ bagay$V248 == "Complete secondary school: university-preparatory type" 
+               | bagay$V248 == "Some university-level education, without degree" 
+               | bagay$V248 == "University - level education, with degree"] <- 3
+# 
+ftab(bagay$educ)
+ftab(bagay$V248)
+ #  1    2    3   <NA> 
+ # 659 1048  288    1 
+
+# ok. 
+
+```
+<br>
+
+## Subjective Social Class
+`NOTE==> (Sarkissian only used this because it was difficult t obtain income data)`.  
+
+I am recoding it here for exploratory purposes.
+
+`V238. People sometimes describe themselves as belonging to the working class,`
+`the middle class, or the upper or lower class. Would you describe yourself as`
+`belonging to the (read out and code one answer):` 
+
+            1  Upper class
+            2  Upper middle class
+            3  Lower middle class
+            4  Working class
+            5  Lower class
+
+I am reversing the emphatic order of these levels in my own recode (e.g. upper class now will be assigned "5" as opposed to "1")
+
+<br>
+```{r class, echo=TRUE, warning=FALSE, results='hide'}
+
+# V238. social class
+
+ftab(bagay$V238)
+# 
+bagay$social_class  <- NA
+bagay$social_class[bagay$V238 == "Upper class"] <- 5
+bagay$social_class[bagay$V238 == "Upper middle class"] <- 4
+bagay$social_class[bagay$V238 == "Lower middle class"] <- 3
+bagay$social_class[bagay$V238 == "Working class"] <- 2
+bagay$social_class[bagay$V238 == "Lower class"] <- 1
+
+# 
+str(bagay$social_class)
+ftab(bagay$social_class)
+ftab(bagay$V238)
+# ok. 
+
+```
+<br>
+
+## Lives with parents
+`V250. Do you live with your parents? (Code one answer):`  
+
+      1   Yes
+      2   No
+
+<br>
+```{r lives-with-parents, echo=TRUE, warning=FALSE, results='hide'}
+
+# V250. Lives with parents  
+
+ftab(bagay$V250)
+# 
+bagay$lives_with_parents  <- NA
+
+bagay$lives_with_parents[bagay$V250 == "No"] <- 0
+
+bagay$lives_with_parents[bagay$V250 == "Yes"] <- 1
+
+# 
+str(bagay$lives_with_parents)
+ftab(bagay$lives_with_parents)
+ftab(bagay$V250)
+# ok. 
+
+```
+<br>
+
+## Population size  
+
+`:: (NOT IN SARKISSIAN”S)::`    
+
+`V253. (Code size of town):`  
+
+            - 1 Under 2,000
+            - 2 2,000 - 5,000
+            - 3 5 - 10,000
+            - 4 10 - 20,000
+            - 5 20 - 50,000
+            - 6 50 - 100,000
+            - 7 100 - 500,000
+            - 8 500,000 and more
+
+This is already in the correct emphatic order.
+
+<br>
+```{r pop_size, echo=TRUE, warning=FALSE, results='hide'}
+
+# V253. Population size
+
+ftab(bagay$V253)
+# 
+bagay$pop_size  <- NA
+bagay$pop_size[bagay$V253 == "Under 2,000"] <- 1
+bagay$pop_size[bagay$V253 == "2,000-5,000"] <- 2
+bagay$pop_size[bagay$V253 == "5,000-10,000"] <- 3
+bagay$pop_size[bagay$V253 == "10,000-20,000"] <- 4
+bagay$pop_size[bagay$V253 == "20,000-50,000"] <- 5
+bagay$pop_size[bagay$V253 == "50,000-100,000"] <- 6
+bagay$pop_size[bagay$V253 == "100,000-500,000"] <- 7
+bagay$pop_size[bagay$V253 == "500,000 and more"] <- 8
+
+# 
+str(bagay$pop_size)
+ftab(bagay$pop_size)
+ftab(bagay$V253)
+# ok. 
+
+```
+<br>
+
+## Ethnicity 
+`::(NOT IN SARKISSIAN”S)::`
+
+`V254. (Code ethnic group by observation, modify for your own society):`
+
+          - 1 Black
+          - 2 White Haitian
+          - 3 Mulatto
+          - 4 Asian
+          - 5 Other (write in): _____________________________
+
+I am only recoding this for exploratory purposes and to get an idea of how representative the sample is.    
+
+<br> 
+
+According to the CIA World FactBook, Haiti's population is:   
+
+        - 95%  black 
+        - 5%   mixed & white 
+        
+        
+<br>
+```{r ethnic, echo=TRUE, warning=FALSE, results='hide'}
+
+# V254. Ethnicity  
+
+
+#  MY RECODE:
+# - 1 Black
+# - 2 White Haitian / mulatto
+# - 3 other
+
+
+ftab(bagay$V254)
+# 
+bagay$ethnicity  <- NA   
+
+bagay$ethnicity[bagay$V254 == "Black-Other / Black"] <- 1
+
+bagay$ethnicity[bagay$V254 == "HT: Mixed Race (Mullato) Haitian" | bagay$V254 == "HT: White Haitian"] <- 2
+
+bagay$ethnicity[bagay$V254 == "Other" | bagay$V254 == "HT: Asian/Middle Eastern"] <- 3
+
+
+# 
+str(bagay$ethnicity)
+ftab(bagay$ethnicity)
+ftab(bagay$V254)
+# ok. 
+
+```
+<br>
+
+In terms of ethnic groups, the sample is representative:   
+
+        - 1932/1996 ====> 96% Black   
+        - 60/1996 ======> 3% white/Mulatto   
+
+`The CIA estimates are from 2018 and these figures in the smaple are from 2016.`
+`It should not make a big difference, but the estimates are close enough`
+
+<br>
+
+
+#### Save the tidy data again in the correct folder:
+<br>
+```{r save-data, warning=FALSE, include = TRUE, echo = TRUE}
+
+# save a copy here in `raw-code` : 
+save(bagay, file = "tidy-WVS-Haiti2016.csv")
+
+
+# change directory to save another copy in `tidy-data`  
+
+setwd("/cloud/project/religion-civic-Haiti/data/tidy-data")
+
+save(bagay, file = "tidy-WVS-Haiti2016.csv")
+
+
+#  return to the original directory
+setwd("/cloud/project/religion-civic-Haiti/code/raw-code")
+
 
 #  for reproducibility's sake, let's record the session info:
 sessionInfo()

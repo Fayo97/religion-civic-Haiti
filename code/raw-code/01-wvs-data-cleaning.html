@@ -1637,14 +1637,14 @@ div.tocify {
 <div id="load-packages" class="section level1">
 <h1><span class="header-section-number">1</span> Load packages</h1>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">suppressPackageStartupMessages</span> (<span class="kw">library</span>(foreign))</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(data.table)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(broom)</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">library</span>(skimr)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">library</span>(janitor)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">suppressPackageStartupMessages</span> (<span class="kw">library</span>(data.table))</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(tidyverse))</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">suppressPackageStartupMessages</span> (<span class="kw">library</span>(broom))</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">suppressPackageStartupMessages</span> (<span class="kw">library</span>(skimr))</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">suppressPackageStartupMessages</span> (<span class="kw">library</span>(janitor))</a>
 <a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co"># install.packages(&quot;devtools&quot;)</span></a>
 <a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co"># devtools::install_github(&quot;thomasp85/patchwork&quot;)</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="kw">library</span>(patchwork)</a></code></pre></div>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="kw">suppressPackageStartupMessages</span> (<span class="kw">library</span>(patchwork))</a></code></pre></div>
 <p><br></p>
 </div>
 <div id="call-the-data-file" class="section level1">
@@ -1680,7 +1680,7 @@ div.tocify {
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#  this shows that every row is complete and that there are no missing values. but that's grossly misleading. </span></a>
 <a class="sourceLine" id="cb7-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co"># install.packages(&quot;naniar&quot;)</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="kw">library</span>(naniar)</a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="kw">suppressPackageStartupMessages</span> (<span class="kw">library</span>(naniar))</a>
 <a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">## visualize missingness</span></a>
 <a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co"># vis_miss(bagay[1:100])  # uncomment and play with the range as needed</span></a>
 <a class="sourceLine" id="cb7-8" data-line-number="8"></a>
@@ -1693,7 +1693,7 @@ div.tocify {
 <h1><span class="header-section-number">4</span> Recode variables</h1>
 <div id="secular-association-participation" class="section level2">
 <h2><span class="header-section-number">4.1</span> Secular Association Participation</h2>
-<p><br> I detail out each specific secular group as a sub-dummy before coding it like Sarkissian did ==&gt; as an overall dummy: 1= respondent belongs to any of the secular groups below; 0 = they don’t belong.</p>
+<p><br> I detail out each specific secular group as a sub-dummy before coding it like Sarkissian did ==&gt; as an overall dummy: 1 = respondent belongs to any of the secular groups below; 0 = they don’t belong.</p>
 <p>I will then use these sub-dummies to code the overall dummy for secular organizations later.<br />
 <br></p>
 <div id="part-1-secular-sub-dummies" class="section level3">
@@ -1827,18 +1827,18 @@ div.tocify {
 <a class="sourceLine" id="cb9-42" data-line-number="42"><span class="co"># names(bagay)</span></a>
 <a class="sourceLine" id="cb9-43" data-line-number="43"></a>
 <a class="sourceLine" id="cb9-44" data-line-number="44"><span class="co">#  prelim. exploratory plot 0.1</span></a>
-<a class="sourceLine" id="cb9-45" data-line-number="45"><span class="kw">ggplot</span>(bagay, <span class="kw">aes</span>(<span class="dt">x=</span>secular, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-46" data-line-number="46"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">fill=</span><span class="kw">c</span>(<span class="st">&quot;navy&quot;</span>, <span class="st">&quot;brown&quot;</span>)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-47" data-line-number="47"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span> <span class="st">&quot;membership in secular organization&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb9-48" data-line-number="48"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
-<p><img src="data:image/png;base64,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EgFVCChcM1ZCQCUCqhBQuGashIBKBFQhoHDNWAkBlQioQkDhmrESAioRUIWAwjVjJQRUIqAKAYVrxkoIqERAFQIK14yVEFCJgCoEFK4ZKxEj+p9AQ9SICCgcMFZCQJFN1IgIKBwwVkJAkU3UiMoR0JXPdrWtUhnpfkuq6PdalIaxEjGiot9rURpRI3p66KvFB/Toiysxin6vRWlE7SdV9HstSiNqP2uHVhUf0GMu39nV9kplc/dbUkW/16I0jJWIERX9XovSiBrR1jJ8BMrXQJGPsRK+BopsokZUjq+BElDkYqyEgCKbqBERUDhgrISAIpuoERFQOGCshIAim6gREVA4YKyEgCKbqBERUDhgrISAIpuoERFQOGCshIAim6gREVA4YKyEgCKbqBERUDhgrISAIpuoERFQOGCshIAim6gREVA4YKyEgCKbqBERUDhgrISAIpuoERFQOGCshIAim6gREVA4YKyEgCKbqBERUDhgrISAIpuoERFQOGCshIAim6gREVA4YKyEgCKbqBERUDhgrISAIpuoERFQOGCshIAim6gREVA4YKyEgCKbqBERUDhgrISAIpuoERFQOGCshIAim6gREVA4YKyEgCKbqBERUDhgrISAIpuoERFQOGCshIAim6gREVA4YKyEgCKbqBERUDhgrISAIpuoERFQOGCshIAim6gREVA4YKyEgCKbqBERUDhgrISAIpuoERFQOGCshIAim6gREVA4YKyEgCKbqBERUDhgrISAIpuoERFQOGCshIAim6gREVA4YKyEgCKbqBERUDhgrISAIpuoERFQOGCshIAim6gREVA4YKyEgCKbqBERUDhgrISAIpuoERFQOGCshIAim6gREVA4YKyEgCKbqBERUDhgrISAIpuoERFQOGCshIAim6gREVA4YKyEgCKbqBERUDhgrISAIpuoERFQOGCshIAim6gREVA4YKyEgCKbqBERUDhgrISAIpuoERFQOGCshIAim6gREVA4YKyEgCKbqBERUDhgrISAIpuoERFQOGCshIAim6gREVA4YKyEgCKbqBERUDhgrISAIpuoERFQOGCshIAim6gREVA4YKyEgCKbqBERUDhgrISAIpuoERFQOGCshIAim6gREVA4YKyEgCKbqBERUDhgrISAIpuoERFQOGCshIAim6gREVA4YKyEgCKbqBERUDhgrISA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" width="672" /></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># ok</span></a></code></pre></div>
+<a class="sourceLine" id="cb9-45" data-line-number="45"><span class="co"># ggplot(bagay, aes(x=secular, na.rm = TRUE)) + </span></a>
+<a class="sourceLine" id="cb9-46" data-line-number="46"><span class="co">#   geom_bar(fill=c(&quot;navy&quot;, &quot;brown&quot;)) + </span></a>
+<a class="sourceLine" id="cb9-47" data-line-number="47"><span class="co">#   labs(x= &quot;membership in secular organization&quot;) +</span></a>
+<a class="sourceLine" id="cb9-48" data-line-number="48"><span class="co">#   theme_bw()</span></a>
+<a class="sourceLine" id="cb9-49" data-line-number="49"></a>
+<a class="sourceLine" id="cb9-50" data-line-number="50"><span class="co"># ok</span></a></code></pre></div>
 <p><br></p>
 <div id="save-data-at-this-stage-so-that-we-do-not-need-to-read-it-from-raw-data-each-time" class="section level4">
 <h4><span class="header-section-number">4.1.2.1</span> Save data at this stage so that we do not need to read it from raw data each time</h4>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">save</span>(bagay, <span class="dt">file=</span><span class="st">&quot;WVS-Haiti2016.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">#  we will keep on writing over this file to update it at various stages of the data clenaing process.</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">save</span>(bagay, <span class="dt">file=</span><span class="st">&quot;WVS-Haiti2016.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#  we will keep on writing over this file to update it at various stages of the data clenaing process.</span></a></code></pre></div>
 <p><br></p>
 </div>
 </div>
@@ -1858,337 +1858,499 @@ div.tocify {
 <p><br></p>
 <p>I agree. These activities may reflect political engagement based on party-politics (find documentation from the New York Times that opposition candidates hire hoodlums to boycott elections or terrorize the population on election day…), socio-economic strife, etc.</p>
 <p><br></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">ftab</span>(bagay<span class="op">$</span>V87)</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co"># ggplot(bagay, aes(V85)) + geom_bar()</span></a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co"># V85. Signing a petition</span></a>
-<a class="sourceLine" id="cb12-6" data-line-number="6">bagay<span class="op">$</span>petition &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb12-7" data-line-number="7">bagay<span class="op">$</span>petition[bagay<span class="op">$</span>V85 <span class="op">==</span><span class="st"> &quot;Might do&quot;</span> <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V85 <span class="op">==</span><span class="st">&quot;Would never do&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb12-8" data-line-number="8">bagay<span class="op">$</span>petition[bagay<span class="op">$</span>V85 <span class="op">==</span><span class="st"> &quot;Have done&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb12-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="kw">ftab</span>(bagay<span class="op">$</span>petition)</a>
-<a class="sourceLine" id="cb12-11" data-line-number="11"><span class="kw">ftab</span>(bagay<span class="op">$</span>V85)</a>
-<a class="sourceLine" id="cb12-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb12-13" data-line-number="13"><span class="co"># V86. Joining in boycotts</span></a>
-<a class="sourceLine" id="cb12-14" data-line-number="14">bagay<span class="op">$</span>boycotts &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb12-15" data-line-number="15">bagay<span class="op">$</span>boycotts[bagay<span class="op">$</span>V86 <span class="op">==</span><span class="st"> &quot;Might do&quot;</span> <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V86 <span class="op">==</span><span class="st">&quot;Would never do&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb12-16" data-line-number="16">bagay<span class="op">$</span>boycotts[bagay<span class="op">$</span>V86 <span class="op">==</span><span class="st"> &quot;Have done&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb12-17" data-line-number="17"><span class="kw">ftab</span>(bagay<span class="op">$</span>boycotts)</a>
-<a class="sourceLine" id="cb12-18" data-line-number="18"><span class="kw">ftab</span>(bagay<span class="op">$</span>V86)</a>
-<a class="sourceLine" id="cb12-19" data-line-number="19"></a>
-<a class="sourceLine" id="cb12-20" data-line-number="20"><span class="co"># V87. Attending peaceful demonstrations</span></a>
-<a class="sourceLine" id="cb12-21" data-line-number="21">bagay<span class="op">$</span>peaceful_march &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb12-22" data-line-number="22">bagay<span class="op">$</span>peaceful_march[bagay<span class="op">$</span>V87 <span class="op">==</span><span class="st"> &quot;Might do&quot;</span> <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V87 <span class="op">==</span><span class="st">&quot;Would never do&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb12-23" data-line-number="23">bagay<span class="op">$</span>peaceful_march[bagay<span class="op">$</span>V87 <span class="op">==</span><span class="st"> &quot;Have done&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb12-24" data-line-number="24"><span class="kw">ftab</span>(bagay<span class="op">$</span>peaceful_march)</a>
-<a class="sourceLine" id="cb12-25" data-line-number="25"><span class="kw">ftab</span>(bagay<span class="op">$</span>V87)</a>
-<a class="sourceLine" id="cb12-26" data-line-number="26"></a>
-<a class="sourceLine" id="cb12-27" data-line-number="27"><span class="co"># V88. Joining strikes</span></a>
-<a class="sourceLine" id="cb12-28" data-line-number="28">bagay<span class="op">$</span>strikes &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb12-29" data-line-number="29">bagay<span class="op">$</span>strikes[bagay<span class="op">$</span>V88 <span class="op">==</span><span class="st"> &quot;Might do&quot;</span> <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V88 <span class="op">==</span><span class="st">&quot;Would never do&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb12-30" data-line-number="30">bagay<span class="op">$</span>strikes[bagay<span class="op">$</span>V88 <span class="op">==</span><span class="st"> &quot;Have done&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb12-31" data-line-number="31"><span class="kw">ftab</span>(bagay<span class="op">$</span>strikes)</a>
-<a class="sourceLine" id="cb12-32" data-line-number="32"><span class="kw">ftab</span>(bagay<span class="op">$</span>V88)</a>
-<a class="sourceLine" id="cb12-33" data-line-number="33"></a>
-<a class="sourceLine" id="cb12-34" data-line-number="34"><span class="co"># V89. Any other act of protest?</span></a>
-<a class="sourceLine" id="cb12-35" data-line-number="35">bagay<span class="op">$</span>other_protest &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb12-36" data-line-number="36">bagay<span class="op">$</span>other_protest[bagay<span class="op">$</span>V89 <span class="op">==</span><span class="st"> &quot;Might do&quot;</span> <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V89 <span class="op">==</span><span class="st">&quot;Would never do&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb12-37" data-line-number="37">bagay<span class="op">$</span>other_protest[bagay<span class="op">$</span>V89 <span class="op">==</span><span class="st"> &quot;Have done&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb12-38" data-line-number="38"><span class="kw">ftab</span>(bagay<span class="op">$</span>other_protest)</a>
-<a class="sourceLine" id="cb12-39" data-line-number="39"><span class="kw">ftab</span>(bagay<span class="op">$</span>V89)</a>
-<a class="sourceLine" id="cb12-40" data-line-number="40"><span class="co">#  good!</span></a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">ftab</span>(bagay<span class="op">$</span>V87)</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co"># ggplot(bagay, aes(V85)) + geom_bar()</span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="co"># V85. Signing a petition</span></a>
+<a class="sourceLine" id="cb11-6" data-line-number="6">bagay<span class="op">$</span>petition &lt;-<span class="st"> </span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb11-7" data-line-number="7">bagay<span class="op">$</span>petition[bagay<span class="op">$</span>V85 <span class="op">==</span><span class="st"> &quot;Might do&quot;</span> <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V85 <span class="op">==</span><span class="st">&quot;Would never do&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb11-8" data-line-number="8">bagay<span class="op">$</span>petition[bagay<span class="op">$</span>V85 <span class="op">==</span><span class="st"> &quot;Have done&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb11-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="kw">ftab</span>(bagay<span class="op">$</span>petition)</a>
+<a class="sourceLine" id="cb11-11" data-line-number="11"><span class="kw">ftab</span>(bagay<span class="op">$</span>V85)</a>
+<a class="sourceLine" id="cb11-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb11-13" data-line-number="13"><span class="co"># V86. Joining in boycotts</span></a>
+<a class="sourceLine" id="cb11-14" data-line-number="14">bagay<span class="op">$</span>boycotts &lt;-<span class="st"> </span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb11-15" data-line-number="15">bagay<span class="op">$</span>boycotts[bagay<span class="op">$</span>V86 <span class="op">==</span><span class="st"> &quot;Might do&quot;</span> <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V86 <span class="op">==</span><span class="st">&quot;Would never do&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb11-16" data-line-number="16">bagay<span class="op">$</span>boycotts[bagay<span class="op">$</span>V86 <span class="op">==</span><span class="st"> &quot;Have done&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb11-17" data-line-number="17"><span class="kw">ftab</span>(bagay<span class="op">$</span>boycotts)</a>
+<a class="sourceLine" id="cb11-18" data-line-number="18"><span class="kw">ftab</span>(bagay<span class="op">$</span>V86)</a>
+<a class="sourceLine" id="cb11-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb11-20" data-line-number="20"><span class="co"># V87. Attending peaceful demonstrations</span></a>
+<a class="sourceLine" id="cb11-21" data-line-number="21">bagay<span class="op">$</span>peaceful_march &lt;-<span class="st"> </span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb11-22" data-line-number="22">bagay<span class="op">$</span>peaceful_march[bagay<span class="op">$</span>V87 <span class="op">==</span><span class="st"> &quot;Might do&quot;</span> <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V87 <span class="op">==</span><span class="st">&quot;Would never do&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb11-23" data-line-number="23">bagay<span class="op">$</span>peaceful_march[bagay<span class="op">$</span>V87 <span class="op">==</span><span class="st"> &quot;Have done&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb11-24" data-line-number="24"><span class="kw">ftab</span>(bagay<span class="op">$</span>peaceful_march)</a>
+<a class="sourceLine" id="cb11-25" data-line-number="25"><span class="kw">ftab</span>(bagay<span class="op">$</span>V87)</a>
+<a class="sourceLine" id="cb11-26" data-line-number="26"></a>
+<a class="sourceLine" id="cb11-27" data-line-number="27"><span class="co"># V88. Joining strikes</span></a>
+<a class="sourceLine" id="cb11-28" data-line-number="28">bagay<span class="op">$</span>strikes &lt;-<span class="st"> </span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb11-29" data-line-number="29">bagay<span class="op">$</span>strikes[bagay<span class="op">$</span>V88 <span class="op">==</span><span class="st"> &quot;Might do&quot;</span> <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V88 <span class="op">==</span><span class="st">&quot;Would never do&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb11-30" data-line-number="30">bagay<span class="op">$</span>strikes[bagay<span class="op">$</span>V88 <span class="op">==</span><span class="st"> &quot;Have done&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb11-31" data-line-number="31"><span class="kw">ftab</span>(bagay<span class="op">$</span>strikes)</a>
+<a class="sourceLine" id="cb11-32" data-line-number="32"><span class="kw">ftab</span>(bagay<span class="op">$</span>V88)</a>
+<a class="sourceLine" id="cb11-33" data-line-number="33"></a>
+<a class="sourceLine" id="cb11-34" data-line-number="34"><span class="co"># V89. Any other act of protest?</span></a>
+<a class="sourceLine" id="cb11-35" data-line-number="35">bagay<span class="op">$</span>other_protest &lt;-<span class="st"> </span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb11-36" data-line-number="36">bagay<span class="op">$</span>other_protest[bagay<span class="op">$</span>V89 <span class="op">==</span><span class="st"> &quot;Might do&quot;</span> <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V89 <span class="op">==</span><span class="st">&quot;Would never do&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb11-37" data-line-number="37">bagay<span class="op">$</span>other_protest[bagay<span class="op">$</span>V89 <span class="op">==</span><span class="st"> &quot;Have done&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb11-38" data-line-number="38"><span class="kw">ftab</span>(bagay<span class="op">$</span>other_protest)</a>
+<a class="sourceLine" id="cb11-39" data-line-number="39"><span class="kw">ftab</span>(bagay<span class="op">$</span>V89)</a>
+<a class="sourceLine" id="cb11-40" data-line-number="40"><span class="co">#  good!</span></a></code></pre></div>
 <p><br></p>
 </div>
 <div id="voting-habits" class="section level2">
 <h2><span class="header-section-number">4.3</span> Voting Habits</h2>
 <p><br></p>
 <p><strong>QUESTION</strong>: <em>“When elections take place, do you vote always, usually or never? Please tell me separately for each of the following levels”</em></p>
-<ul>
-<li>Let’s code it as follows:
-<ul>
-<li>“always” or “usually” as 1;</li>
-<li>anything else as 0.</li>
-<li>No answer is NA</li>
-</ul></li>
-<li>Be sure to code both variables: <em>national</em> and <em>local political</em> participation</li>
-</ul>
+<pre><code>    1. Let's code it as follows:
+
+         - &quot;always&quot; or &quot;usually&quot; as 1; 
+         - anything else as 0. 
+         -  No answer is NA
+
+    2. Be sure to code both variables: *national* and *local political* participation  </code></pre>
 <p><br></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co"># QUESTION: ”When elections take place, do you vote always, usually or never? Please tell me separately for each of the following levels”</span></a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co"># in R: code &quot;always&quot; or &quot;usually&quot; as 1; anything else as 0. No answer is NA</span></a>
-<a class="sourceLine" id="cb13-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co"># Be sure to code both variables: national and local political participation</span></a>
-<a class="sourceLine" id="cb13-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co"># V226. Local level </span></a>
-<a class="sourceLine" id="cb13-8" data-line-number="8">bagay<span class="op">$</span>voted_local &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb13-9" data-line-number="9">bagay<span class="op">$</span>voted_local[bagay<span class="op">$</span>V226 <span class="op">==</span><span class="st"> &quot;Never&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb13-10" data-line-number="10">bagay<span class="op">$</span>voted_local[bagay<span class="op">$</span>V226 <span class="op">==</span><span class="st"> &quot;Always&quot;</span> <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V226 <span class="op">==</span><span class="st">&quot;Usually&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb13-11" data-line-number="11"><span class="kw">ftab</span>(bagay<span class="op">$</span>voted_local)</a>
-<a class="sourceLine" id="cb13-12" data-line-number="12"><span class="kw">ftab</span>(bagay<span class="op">$</span>V226)</a>
-<a class="sourceLine" id="cb13-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb13-14" data-line-number="14"><span class="co"># V227. National level</span></a>
-<a class="sourceLine" id="cb13-15" data-line-number="15">bagay<span class="op">$</span>voted_natl &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb13-16" data-line-number="16">bagay<span class="op">$</span>voted_natl[bagay<span class="op">$</span>V227 <span class="op">==</span><span class="st"> &quot;Never&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb13-17" data-line-number="17">bagay<span class="op">$</span>voted_natl[bagay<span class="op">$</span>V227 <span class="op">==</span><span class="st"> &quot;Always&quot;</span> <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V227 <span class="op">==</span><span class="st">&quot;Usually&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb13-18" data-line-number="18"><span class="kw">ftab</span>(bagay<span class="op">$</span>voted_natl)</a>
-<a class="sourceLine" id="cb13-19" data-line-number="19"><span class="kw">ftab</span>(bagay<span class="op">$</span>V227)</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co"># V226. Local level </span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">bagay<span class="op">$</span>voted_local &lt;-<span class="st"> </span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">bagay<span class="op">$</span>voted_local[bagay<span class="op">$</span>V226 <span class="op">==</span><span class="st"> &quot;Never&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4">bagay<span class="op">$</span>voted_local[bagay<span class="op">$</span>V226 <span class="op">==</span><span class="st"> &quot;Always&quot;</span> <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V226 <span class="op">==</span><span class="st">&quot;Usually&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="kw">ftab</span>(bagay<span class="op">$</span>voted_local)</a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="kw">ftab</span>(bagay<span class="op">$</span>V226)</a>
+<a class="sourceLine" id="cb13-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="co"># V227. National level</span></a>
+<a class="sourceLine" id="cb13-9" data-line-number="9">bagay<span class="op">$</span>voted_natl &lt;-<span class="st"> </span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb13-10" data-line-number="10">bagay<span class="op">$</span>voted_natl[bagay<span class="op">$</span>V227 <span class="op">==</span><span class="st"> &quot;Never&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb13-11" data-line-number="11">bagay<span class="op">$</span>voted_natl[bagay<span class="op">$</span>V227 <span class="op">==</span><span class="st"> &quot;Always&quot;</span> <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V227 <span class="op">==</span><span class="st">&quot;Usually&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb13-12" data-line-number="12"><span class="kw">ftab</span>(bagay<span class="op">$</span>voted_natl)</a>
+<a class="sourceLine" id="cb13-13" data-line-number="13"><span class="kw">ftab</span>(bagay<span class="op">$</span>V227)</a></code></pre></div>
 <p><br></p>
 </div>
 <div id="frequency-of-religious-service-attendance" class="section level2">
 <h2><span class="header-section-number">4.4</span> Frequency of Religious Service Attendance</h2>
-<p>“Apart from weddings and funerals, how often do you attend religious services these days?”</p>
-<ul>
-<li>1 = once a week or more than once a week,<br />
-</li>
-<li>0 = once a month, only on special holy days, once a year, less often, never, practically never.</li>
-</ul>
-<p><code>V145. Apart from weddings and funerals, about how often do you attend religious services these days?</code></p>
 <p><br></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co">#</span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw">ftab</span>(bagay<span class="op">$</span>V145)</a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co"># V145 freq_relig_services </span></a>
-<a class="sourceLine" id="cb14-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb14-6" data-line-number="6">bagay<span class="op">$</span>freq_relig_services  &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb14-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb14-8" data-line-number="8">bagay<span class="op">$</span>freq_relig_services[  bagay<span class="op">$</span>V145 <span class="op">==</span><span class="st"> &quot;Once a month&quot;</span> </a>
-<a class="sourceLine" id="cb14-9" data-line-number="9">                  <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V145 <span class="op">==</span><span class="st"> &quot;Only on special holy days&quot;</span> </a>
-<a class="sourceLine" id="cb14-10" data-line-number="10">                  <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V145 <span class="op">==</span><span class="st"> &quot;Once a year&quot;</span> </a>
-<a class="sourceLine" id="cb14-11" data-line-number="11">                  <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V145 <span class="op">==</span><span class="st"> &quot;Less often&quot;</span></a>
-<a class="sourceLine" id="cb14-12" data-line-number="12">                  <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V145 <span class="op">==</span><span class="st"> &quot;Never, practically never&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb14-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb14-14" data-line-number="14">bagay<span class="op">$</span>freq_relig_services[bagay<span class="op">$</span>V145 <span class="op">==</span><span class="st"> &quot;Once a week&quot;</span> <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V145 <span class="op">==</span><span class="st">&quot;More than once a week&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb14-15" data-line-number="15"><span class="co"># </span></a>
-<a class="sourceLine" id="cb14-16" data-line-number="16"><span class="kw">ftab</span>(bagay<span class="op">$</span>freq_relig_services)</a>
-<a class="sourceLine" id="cb14-17" data-line-number="17"><span class="kw">ftab</span>(bagay<span class="op">$</span>V145)</a>
-<a class="sourceLine" id="cb14-18" data-line-number="18"><span class="co"># ok. </span></a></code></pre></div>
+<p><code>V145. Apart from weddings and funerals, about how often do you attend religious services these days?</code></p>
+<pre><code>    1 = once a week or more than once a week,  
+    0 = once a month, only on special holy days, once a year, less often, never, practically never.   </code></pre>
+<p><br></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co">#</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw">ftab</span>(bagay<span class="op">$</span>V145)</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="co"># V145 freq_relig_services </span></a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb15-6" data-line-number="6">bagay<span class="op">$</span>freq_relig_services  &lt;-<span class="st"> </span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb15-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb15-8" data-line-number="8">bagay<span class="op">$</span>freq_relig_services[  bagay<span class="op">$</span>V145 <span class="op">==</span><span class="st"> &quot;Once a month&quot;</span> </a>
+<a class="sourceLine" id="cb15-9" data-line-number="9">                  <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V145 <span class="op">==</span><span class="st"> &quot;Only on special holy days&quot;</span> </a>
+<a class="sourceLine" id="cb15-10" data-line-number="10">                  <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V145 <span class="op">==</span><span class="st"> &quot;Once a year&quot;</span> </a>
+<a class="sourceLine" id="cb15-11" data-line-number="11">                  <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V145 <span class="op">==</span><span class="st"> &quot;Less often&quot;</span></a>
+<a class="sourceLine" id="cb15-12" data-line-number="12">                  <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V145 <span class="op">==</span><span class="st"> &quot;Never, practically never&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb15-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb15-14" data-line-number="14">bagay<span class="op">$</span>freq_relig_services[bagay<span class="op">$</span>V145 <span class="op">==</span><span class="st"> &quot;Once a week&quot;</span> <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V145 <span class="op">==</span><span class="st">&quot;More than once a week&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb15-15" data-line-number="15"><span class="co"># </span></a>
+<a class="sourceLine" id="cb15-16" data-line-number="16"><span class="kw">ftab</span>(bagay<span class="op">$</span>freq_relig_services)</a>
+<a class="sourceLine" id="cb15-17" data-line-number="17"><span class="kw">ftab</span>(bagay<span class="op">$</span>V145)</a>
+<a class="sourceLine" id="cb15-18" data-line-number="18"><span class="co"># ok. </span></a></code></pre></div>
+<p><br></p>
 </div>
 <div id="religious-organization-membership" class="section level2">
 <h2><span class="header-section-number">4.5</span> Religious Organization Membership</h2>
-<p>“Now I am going to read off a list of voluntary organizations. For each organization, could you tell me whether you are an active member, an inactive member or not a member of that type of organization?”</p>
-<ul>
-<li>1 = a member (active or inactive);</li>
-<li>0 = not a member of that type of organization.</li>
-</ul>
+<p><code>“Now I am going to read off a list of voluntary organizations. For each organization,</code> <code>could you tell me whether you are an active member, an inactive member or not a member of that type of organization?”</code></p>
+<pre><code>      1 = a member (active or inactive); 
+      0 = not a member of that type of organization.</code></pre>
 <p><br></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co"># V25. Church or religious organization</span></a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw">ftab</span>(bagay<span class="op">$</span>V25)</a>
-<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="kw">str</span>(bagay<span class="op">$</span>V25)</a>
-<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="co"># </span></a>
-<a class="sourceLine" id="cb15-5" data-line-number="5">bagay<span class="op">$</span>relig_member &lt;-<span class="st"> </span><span class="ot">NA</span>  </a>
-<a class="sourceLine" id="cb15-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb15-7" data-line-number="7">bagay<span class="op">$</span>relig_member[bagay<span class="op">$</span>V25 <span class="op">==</span><span class="st"> &quot;Not a member&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb15-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb15-9" data-line-number="9">bagay<span class="op">$</span>relig_member[bagay<span class="op">$</span>V25 <span class="op">==</span><span class="st"> &quot;Inactive member&quot;</span> </a>
-<a class="sourceLine" id="cb15-10" data-line-number="10">                   <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V25 <span class="op">==</span><span class="st">&quot;Active member&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb15-11" data-line-number="11"><span class="kw">ftab</span>(bagay<span class="op">$</span>V25)</a>
-<a class="sourceLine" id="cb15-12" data-line-number="12"><span class="kw">ftab</span>(bagay<span class="op">$</span>relig_member)</a>
-<a class="sourceLine" id="cb15-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb15-14" data-line-number="14"><span class="co">#  prelim. exploratory plot 0.2</span></a>
-<a class="sourceLine" id="cb15-15" data-line-number="15"><span class="kw">ggplot</span>(bagay, <span class="kw">aes</span>(<span class="dt">x=</span>relig_member, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb15-16" data-line-number="16"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">fill=</span><span class="kw">c</span>(<span class="st">&quot;navy&quot;</span>, <span class="st">&quot;orange3&quot;</span>)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb15-17" data-line-number="17"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span> <span class="st">&quot;membership in a religious organization&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb15-18" data-line-number="18"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
-<p><img src="data:image/png;base64,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" width="672" /></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co">#  ok</span></a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co"># V25. Church or religious organization</span></a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="kw">ftab</span>(bagay<span class="op">$</span>V25)</a>
+<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="kw">str</span>(bagay<span class="op">$</span>V25)</a>
+<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="co"># </span></a>
+<a class="sourceLine" id="cb17-5" data-line-number="5">bagay<span class="op">$</span>relig_member &lt;-<span class="st"> </span><span class="ot">NA</span>  </a>
+<a class="sourceLine" id="cb17-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb17-7" data-line-number="7">bagay<span class="op">$</span>relig_member[bagay<span class="op">$</span>V25 <span class="op">==</span><span class="st"> &quot;Not a member&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb17-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb17-9" data-line-number="9">bagay<span class="op">$</span>relig_member[bagay<span class="op">$</span>V25 <span class="op">==</span><span class="st"> &quot;Inactive member&quot;</span> </a>
+<a class="sourceLine" id="cb17-10" data-line-number="10">                   <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V25 <span class="op">==</span><span class="st">&quot;Active member&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb17-11" data-line-number="11"><span class="kw">ftab</span>(bagay<span class="op">$</span>V25)</a>
+<a class="sourceLine" id="cb17-12" data-line-number="12"><span class="kw">ftab</span>(bagay<span class="op">$</span>relig_member)</a>
+<a class="sourceLine" id="cb17-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb17-14" data-line-number="14"><span class="co">#  prelim. exploratory plot 0.2</span></a>
+<a class="sourceLine" id="cb17-15" data-line-number="15"><span class="co"># ggplot(bagay, aes(x=relig_member, na.rm = TRUE)) + </span></a>
+<a class="sourceLine" id="cb17-16" data-line-number="16"><span class="co">#   geom_bar(fill=c(&quot;navy&quot;, &quot;orange3&quot;)) + </span></a>
+<a class="sourceLine" id="cb17-17" data-line-number="17"><span class="co">#   labs(x= &quot;membership in a religious organization&quot;) +</span></a>
+<a class="sourceLine" id="cb17-18" data-line-number="18"><span class="co">#   theme_bw()</span></a>
+<a class="sourceLine" id="cb17-19" data-line-number="19"><span class="co">#  ok</span></a></code></pre></div>
 <p><br></p>
 </div>
 <div id="frequency-of-prayer" class="section level2">
 <h2><span class="header-section-number">4.6</span> Frequency of Prayer</h2>
 <p><code>Question &amp; Raw categories</code>:</p>
-<p><strong>V146. Apart from weddings and funerals, about how often do you pray? (Code one answer):</strong></p>
-<ul>
-<li>1 Several times a day</li>
-<li>2 Once a day</li>
-<li>3 Several times each week</li>
-<li>4 Only when attending religious services</li>
-<li>5 Only on special holy days</li>
-<li>6 Once a year</li>
-<li>7 Less often</li>
-<li>8 Never, practically never</li>
-</ul>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co"># Recode:</span></a>
-<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="co"># 1 = once a day or Several times a day </span></a>
-<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="co"># 0 = Several times each week, Only when attending religious services,Only on special holy days </span></a>
-<a class="sourceLine" id="cb17-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb17-5" data-line-number="5"><span class="co"># V146 freq_prayer </span></a>
-<a class="sourceLine" id="cb17-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb17-7" data-line-number="7"><span class="kw">ftab</span>(bagay<span class="op">$</span>V146)</a>
-<a class="sourceLine" id="cb17-8" data-line-number="8"><span class="co"># </span></a>
-<a class="sourceLine" id="cb17-9" data-line-number="9">bagay<span class="op">$</span>freq_prayer  &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb17-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb17-11" data-line-number="11">bagay<span class="op">$</span>freq_prayer[  bagay<span class="op">$</span>V146 <span class="op">==</span><span class="st"> &quot;Several times each week&quot;</span> </a>
-<a class="sourceLine" id="cb17-12" data-line-number="12">                  <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V146 <span class="op">==</span><span class="st"> &quot;Only on special holy days&quot;</span> </a>
-<a class="sourceLine" id="cb17-13" data-line-number="13">                  <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V146 <span class="op">==</span><span class="st"> &quot;Only when attending religious services&quot;</span> </a>
-<a class="sourceLine" id="cb17-14" data-line-number="14">                  <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V146 <span class="op">==</span><span class="st"> &quot;Only on special holy days&quot;</span></a>
-<a class="sourceLine" id="cb17-15" data-line-number="15">                  <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V146 <span class="op">==</span><span class="st"> &quot;Once a year&quot;</span></a>
-<a class="sourceLine" id="cb17-16" data-line-number="16">                  <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V146 <span class="op">==</span><span class="st"> &quot;Less often than once a year&quot;</span></a>
-<a class="sourceLine" id="cb17-17" data-line-number="17">                  <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V146 <span class="op">==</span><span class="st"> &quot;Never, practically never&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb17-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb17-19" data-line-number="19">bagay<span class="op">$</span>freq_prayer[bagay<span class="op">$</span>V146 <span class="op">==</span><span class="st"> &quot;Once a day&quot;</span> </a>
-<a class="sourceLine" id="cb17-20" data-line-number="20">                          <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V146 <span class="op">==</span><span class="st">&quot;Several times a day&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb17-21" data-line-number="21"><span class="co"># </span></a>
-<a class="sourceLine" id="cb17-22" data-line-number="22"><span class="kw">ftab</span>(bagay<span class="op">$</span>freq_prayer)</a>
-<a class="sourceLine" id="cb17-23" data-line-number="23"><span class="kw">ftab</span>(bagay<span class="op">$</span>V146)</a>
-<a class="sourceLine" id="cb17-24" data-line-number="24"><span class="co"># ok. </span></a></code></pre></div>
+<p><code>V146. Apart from weddings and funerals, about how often do you pray? (Code one answer):__</code></p>
+<pre><code>    1. Several times a day 
+    2. Once a day
+    3. Several times each week
+    4. Only when attending religious services
+    5. Only on special holy days
+    6. Once a year
+    7. Less often
+    8. Never, practically never</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="co"># Recode:</span></a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="co"># 1 = once a day or Several times a day </span></a>
+<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="co"># 0 = Several times each week, Only when attending religious services,Only on special holy days </span></a>
+<a class="sourceLine" id="cb19-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb19-5" data-line-number="5"><span class="co"># V146 freq_prayer </span></a>
+<a class="sourceLine" id="cb19-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb19-7" data-line-number="7"><span class="kw">ftab</span>(bagay<span class="op">$</span>V146)</a>
+<a class="sourceLine" id="cb19-8" data-line-number="8"><span class="co"># </span></a>
+<a class="sourceLine" id="cb19-9" data-line-number="9">bagay<span class="op">$</span>freq_prayer  &lt;-<span class="st"> </span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb19-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb19-11" data-line-number="11">bagay<span class="op">$</span>freq_prayer[  bagay<span class="op">$</span>V146 <span class="op">==</span><span class="st"> &quot;Several times each week&quot;</span> </a>
+<a class="sourceLine" id="cb19-12" data-line-number="12">                  <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V146 <span class="op">==</span><span class="st"> &quot;Only on special holy days&quot;</span> </a>
+<a class="sourceLine" id="cb19-13" data-line-number="13">                  <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V146 <span class="op">==</span><span class="st"> &quot;Only when attending religious services&quot;</span> </a>
+<a class="sourceLine" id="cb19-14" data-line-number="14">                  <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V146 <span class="op">==</span><span class="st"> &quot;Only on special holy days&quot;</span></a>
+<a class="sourceLine" id="cb19-15" data-line-number="15">                  <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V146 <span class="op">==</span><span class="st"> &quot;Once a year&quot;</span></a>
+<a class="sourceLine" id="cb19-16" data-line-number="16">                  <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V146 <span class="op">==</span><span class="st"> &quot;Less often than once a year&quot;</span></a>
+<a class="sourceLine" id="cb19-17" data-line-number="17">                  <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V146 <span class="op">==</span><span class="st"> &quot;Never, practically never&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb19-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb19-19" data-line-number="19">bagay<span class="op">$</span>freq_prayer[bagay<span class="op">$</span>V146 <span class="op">==</span><span class="st"> &quot;Once a day&quot;</span> </a>
+<a class="sourceLine" id="cb19-20" data-line-number="20">                          <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V146 <span class="op">==</span><span class="st">&quot;Several times a day&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb19-21" data-line-number="21"><span class="co"># </span></a>
+<a class="sourceLine" id="cb19-22" data-line-number="22"><span class="kw">ftab</span>(bagay<span class="op">$</span>freq_prayer)</a>
+<a class="sourceLine" id="cb19-23" data-line-number="23"><span class="kw">ftab</span>(bagay<span class="op">$</span>V146)</a>
+<a class="sourceLine" id="cb19-24" data-line-number="24"><span class="co"># ok. </span></a></code></pre></div>
 <p><br></p>
 </div>
 <div id="social-trust" class="section level2">
 <h2><span class="header-section-number">4.7</span> Social Trust</h2>
-<p><code>“Generally speaking, would you say that most people can be trusted (1) or that you need to be very careful in dealing with people (0)?”</code></p>
+<p><code>“Generally speaking, would you say that most people can be trusted (1)</code> <code>or that you need to be very careful in dealing with people (0)?”</code></p>
+<p><br></p>
 <p><code>V24.</code></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="co"># V24. social trust </span></a>
-<a class="sourceLine" id="cb18-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="kw">ftab</span>(bagay<span class="op">$</span>V24)</a>
-<a class="sourceLine" id="cb18-4" data-line-number="4"><span class="co"># </span></a>
-<a class="sourceLine" id="cb18-5" data-line-number="5">bagay<span class="op">$</span>soc_trust  &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb18-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb18-7" data-line-number="7">bagay<span class="op">$</span>soc_trust[  bagay<span class="op">$</span>V24 <span class="op">==</span><span class="st"> &quot;Need to be very careful&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb18-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb18-9" data-line-number="9">bagay<span class="op">$</span>soc_trust[bagay<span class="op">$</span>V24 <span class="op">==</span><span class="st"> &quot;Most people can be trusted&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb18-10" data-line-number="10"><span class="co"># </span></a>
-<a class="sourceLine" id="cb18-11" data-line-number="11"><span class="kw">ftab</span>(bagay<span class="op">$</span>soc_trust)</a>
-<a class="sourceLine" id="cb18-12" data-line-number="12"><span class="kw">ftab</span>(bagay<span class="op">$</span>V24)</a>
-<a class="sourceLine" id="cb18-13" data-line-number="13"><span class="co"># ok. </span></a></code></pre></div>
+<p><br></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="co"># V24. social trust </span></a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="kw">ftab</span>(bagay<span class="op">$</span>V24)</a>
+<a class="sourceLine" id="cb20-4" data-line-number="4"><span class="co"># </span></a>
+<a class="sourceLine" id="cb20-5" data-line-number="5">bagay<span class="op">$</span>soc_trust  &lt;-<span class="st"> </span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb20-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb20-7" data-line-number="7">bagay<span class="op">$</span>soc_trust[  bagay<span class="op">$</span>V24 <span class="op">==</span><span class="st"> &quot;Need to be very careful&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb20-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb20-9" data-line-number="9">bagay<span class="op">$</span>soc_trust[bagay<span class="op">$</span>V24 <span class="op">==</span><span class="st"> &quot;Most people can be trusted&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb20-10" data-line-number="10"><span class="co"># </span></a>
+<a class="sourceLine" id="cb20-11" data-line-number="11"><span class="kw">ftab</span>(bagay<span class="op">$</span>soc_trust)</a>
+<a class="sourceLine" id="cb20-12" data-line-number="12"><span class="kw">ftab</span>(bagay<span class="op">$</span>V24)</a>
+<a class="sourceLine" id="cb20-13" data-line-number="13"><span class="co"># ok. </span></a></code></pre></div>
 <p><br></p>
 </div>
 <div id="tolerance" class="section level2">
 <h2><span class="header-section-number">4.8</span> Tolerance</h2>
-<p>“Here is a list of qualities that children can be encouraged to learn at home. Which, if any, do you consider to be especially important?”</p>
-<ul>
-<li>1 = mentioned “tolerance and respect for people”;</li>
-<li>0 = did not mention.</li>
-</ul>
+<p><code>“Here is a list of qualities that children can be encouraged to learn at home.</code> <code>Which, if any, do you consider to be especially important?”</code></p>
+<pre><code>     1 = mentioned “tolerance and respect for people”;  
+     0 = did not mention.  </code></pre>
 <p><code>V16:  Tolerance and respect for other people</code></p>
 <p><br></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="co"># V16. tolerance </span></a>
-<a class="sourceLine" id="cb19-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="kw">ftab</span>(bagay<span class="op">$</span>V16)</a>
-<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="co"># </span></a>
-<a class="sourceLine" id="cb19-5" data-line-number="5">bagay<span class="op">$</span>tolerance  &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb19-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb19-7" data-line-number="7">bagay<span class="op">$</span>tolerance[bagay<span class="op">$</span>V16 <span class="op">==</span><span class="st"> &quot;Not mentioned&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb19-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb19-9" data-line-number="9">bagay<span class="op">$</span>tolerance[bagay<span class="op">$</span>V16 <span class="op">==</span><span class="st"> &quot;Mentioned&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb19-10" data-line-number="10"><span class="co"># </span></a>
-<a class="sourceLine" id="cb19-11" data-line-number="11"><span class="kw">ftab</span>(bagay<span class="op">$</span>tolerance)</a>
-<a class="sourceLine" id="cb19-12" data-line-number="12"><span class="kw">ftab</span>(bagay<span class="op">$</span>V16)</a>
-<a class="sourceLine" id="cb19-13" data-line-number="13"><span class="co"># ok. </span></a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="co"># V16. tolerance </span></a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb22-3" data-line-number="3"><span class="kw">ftab</span>(bagay<span class="op">$</span>V16)</a>
+<a class="sourceLine" id="cb22-4" data-line-number="4"><span class="co"># </span></a>
+<a class="sourceLine" id="cb22-5" data-line-number="5">bagay<span class="op">$</span>tolerance  &lt;-<span class="st"> </span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb22-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb22-7" data-line-number="7">bagay<span class="op">$</span>tolerance[bagay<span class="op">$</span>V16 <span class="op">==</span><span class="st"> &quot;Not mentioned&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb22-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb22-9" data-line-number="9">bagay<span class="op">$</span>tolerance[bagay<span class="op">$</span>V16 <span class="op">==</span><span class="st"> &quot;Mentioned&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb22-10" data-line-number="10"><span class="co"># </span></a>
+<a class="sourceLine" id="cb22-11" data-line-number="11"><span class="kw">ftab</span>(bagay<span class="op">$</span>tolerance)</a>
+<a class="sourceLine" id="cb22-12" data-line-number="12"><span class="kw">ftab</span>(bagay<span class="op">$</span>V16)</a>
+<a class="sourceLine" id="cb22-13" data-line-number="13"><span class="co"># ok. </span></a></code></pre></div>
 <p><br></p>
 </div>
 <div id="female-gender" class="section level2">
 <h2><span class="header-section-number">4.9</span> Female Gender:</h2>
 <p><em>Sex by observation</em></p>
-<ul>
-<li>1 = female,</li>
-<li>0 = male</li>
-</ul>
-<p><code>V240. (respondent’s sex by observation):</code>1 Male =======&gt; becomes 0 `2 Female =====&gt; becomes 1</p>
+<pre><code>      1 = female, 
+      0 = male        </code></pre>
+<p><code>V240. (respondent’s sex by observation):</code></p>
+<pre><code>    1 Male =======&gt; becomes 0
+    2 Female =====&gt; becomes 1</code></pre>
 <p><br></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="co"># V240. female </span></a>
-<a class="sourceLine" id="cb20-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="kw">ftab</span>(bagay<span class="op">$</span>V240)</a>
-<a class="sourceLine" id="cb20-4" data-line-number="4"><span class="co"># </span></a>
-<a class="sourceLine" id="cb20-5" data-line-number="5">bagay<span class="op">$</span>female  &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb20-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb20-7" data-line-number="7">bagay<span class="op">$</span>female[bagay<span class="op">$</span>V240 <span class="op">==</span><span class="st"> &quot;Male&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb20-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb20-9" data-line-number="9">bagay<span class="op">$</span>female[bagay<span class="op">$</span>V240 <span class="op">==</span><span class="st"> &quot;Female&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb20-10" data-line-number="10"><span class="co"># </span></a>
-<a class="sourceLine" id="cb20-11" data-line-number="11"><span class="kw">ftab</span>(bagay<span class="op">$</span>female)</a>
-<a class="sourceLine" id="cb20-12" data-line-number="12"><span class="kw">ftab</span>(bagay<span class="op">$</span>V240)</a>
-<a class="sourceLine" id="cb20-13" data-line-number="13"><span class="co"># ok. </span></a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="co"># V240. female </span></a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="kw">ftab</span>(bagay<span class="op">$</span>V240)</a>
+<a class="sourceLine" id="cb25-4" data-line-number="4"><span class="co"># </span></a>
+<a class="sourceLine" id="cb25-5" data-line-number="5">bagay<span class="op">$</span>female  &lt;-<span class="st"> </span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb25-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb25-7" data-line-number="7">bagay<span class="op">$</span>female[bagay<span class="op">$</span>V240 <span class="op">==</span><span class="st"> &quot;Male&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb25-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb25-9" data-line-number="9">bagay<span class="op">$</span>female[bagay<span class="op">$</span>V240 <span class="op">==</span><span class="st"> &quot;Female&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb25-10" data-line-number="10"><span class="co"># </span></a>
+<a class="sourceLine" id="cb25-11" data-line-number="11"><span class="kw">ftab</span>(bagay<span class="op">$</span>female)</a>
+<a class="sourceLine" id="cb25-12" data-line-number="12"><span class="kw">ftab</span>(bagay<span class="op">$</span>V240)</a>
+<a class="sourceLine" id="cb25-13" data-line-number="13"><span class="co"># ok. </span></a></code></pre></div>
 <p><br></p>
 </div>
 <div id="age-in-years" class="section level2">
 <h2><span class="header-section-number">4.10</span> Age (in years)</h2>
-<p>`V242. This means you are ____ years old (write in age in two digits).</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="co"># V242. age </span></a>
-<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="co"># </span></a>
-<a class="sourceLine" id="cb21-3" data-line-number="3"><span class="kw">str</span>(bagay<span class="op">$</span>V242)</a>
-<a class="sourceLine" id="cb21-4" data-line-number="4"><span class="co"># integer  -- makes sense!</span></a>
-<a class="sourceLine" id="cb21-5" data-line-number="5"><span class="co"># continuous discrete. </span></a>
-<a class="sourceLine" id="cb21-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb21-7" data-line-number="7"><span class="co"># Missingness ?</span></a>
-<a class="sourceLine" id="cb21-8" data-line-number="8"><span class="kw">sum</span>(<span class="kw">is.na</span>(bagay<span class="op">$</span>V242))</a>
-<a class="sourceLine" id="cb21-9" data-line-number="9"><span class="co">#  0 --- great!</span></a>
-<a class="sourceLine" id="cb21-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb21-11" data-line-number="11">bagay<span class="op">$</span>age  &lt;-<span class="st"> </span>bagay<span class="op">$</span>V242</a>
-<a class="sourceLine" id="cb21-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb21-13" data-line-number="13"><span class="kw">summary</span>(bagay<span class="op">$</span>age)</a>
-<a class="sourceLine" id="cb21-14" data-line-number="14"><span class="kw">summary</span>(bagay<span class="op">$</span>V242)</a>
-<a class="sourceLine" id="cb21-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb21-16" data-line-number="16"><span class="co"># ok. </span></a></code></pre></div>
+<p><code>V242. This means you are ____ years old (write in age in two digits).</code></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="co"># V242. age </span></a>
+<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="co"># </span></a>
+<a class="sourceLine" id="cb26-3" data-line-number="3"><span class="kw">str</span>(bagay<span class="op">$</span>V242)</a>
+<a class="sourceLine" id="cb26-4" data-line-number="4"><span class="co"># integer  -- makes sense!</span></a>
+<a class="sourceLine" id="cb26-5" data-line-number="5"><span class="co"># continuous discrete. </span></a>
+<a class="sourceLine" id="cb26-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb26-7" data-line-number="7"><span class="co"># Missingness ?</span></a>
+<a class="sourceLine" id="cb26-8" data-line-number="8"><span class="kw">sum</span>(<span class="kw">is.na</span>(bagay<span class="op">$</span>V242))</a>
+<a class="sourceLine" id="cb26-9" data-line-number="9"><span class="co">#  0 --- great!</span></a>
+<a class="sourceLine" id="cb26-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb26-11" data-line-number="11">bagay<span class="op">$</span>age  &lt;-<span class="st"> </span>bagay<span class="op">$</span>V242</a>
+<a class="sourceLine" id="cb26-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb26-13" data-line-number="13"><span class="kw">summary</span>(bagay<span class="op">$</span>age)</a>
+<a class="sourceLine" id="cb26-14" data-line-number="14"><span class="kw">summary</span>(bagay<span class="op">$</span>V242)</a>
+<a class="sourceLine" id="cb26-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb26-16" data-line-number="16"><span class="co"># ok. </span></a></code></pre></div>
 <p><br></p>
 </div>
 <div id="income" class="section level2">
 <h2><span class="header-section-number">4.11</span> Income</h2>
-<p><code>(preferred measure of SES)</code></p>
-<p><code>“On this card is a scale of incomes on which 1 indicates the lowest income decile’ and 10 the ‘highest income decile in your country. We would like to know in what group your household is. Please, specify the appropriate number, counting all wages, salaries, pensions, and other incomes that come in.”</code></p>
-<p>`V239. On this card is an income scale on which 1 indicates the lowest income group and 10 the highest income group in your country. We would like to know in what group your household is. Please, specify the appropriate number, counting all wages, salaries, pensions and other incomes that come in. (Code one number):</p>
+<pre><code>        (preferred measure of SES)</code></pre>
+<p><code>V239. On this card is an income scale on which 1 indicates the lowest income group</code> <code>and 10 the highest income group in your country. We would like to know in what</code> <code>group your household is. Please, specify the appropriate number, counting all</code> <code>wages, salaries, pensions and other incomes that come in. (Code one number):</code></p>
 <p><br></p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="co"># Lowest group &lt;=================================&gt; Highest group </span></a>
-<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="co">#     1       2    3     4       5      6       7       8        9      10 </span></a></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="co"># Lowest group &lt;===========================================&gt; Highest group </span></a>
+<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="co">#     1       2    3     4       5      6       7       8        9      10 </span></a></code></pre></div>
 <p><br></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="co"># V239. Income</span></a>
-<a class="sourceLine" id="cb23-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb23-3" data-line-number="3"><span class="kw">ftab</span>(bagay<span class="op">$</span>V239)</a>
-<a class="sourceLine" id="cb23-4" data-line-number="4"><span class="co"># </span></a>
-<a class="sourceLine" id="cb23-5" data-line-number="5">bagay<span class="op">$</span>income_decile  &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb23-6" data-line-number="6">bagay<span class="op">$</span>income_decile[bagay<span class="op">$</span>V239 <span class="op">==</span><span class="st"> &quot;Lower step&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb23-7" data-line-number="7">bagay<span class="op">$</span>income_decile[bagay<span class="op">$</span>V239 <span class="op">==</span><span class="st"> &quot;second step&quot;</span>] &lt;-<span class="st"> </span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb23-8" data-line-number="8">bagay<span class="op">$</span>income_decile[bagay<span class="op">$</span>V239 <span class="op">==</span><span class="st"> &quot;Third step&quot;</span>] &lt;-<span class="st"> </span><span class="dv">3</span></a>
-<a class="sourceLine" id="cb23-9" data-line-number="9">bagay<span class="op">$</span>income_decile[bagay<span class="op">$</span>V239 <span class="op">==</span><span class="st"> &quot;Fourth step&quot;</span>] &lt;-<span class="st"> </span><span class="dv">4</span></a>
-<a class="sourceLine" id="cb23-10" data-line-number="10">bagay<span class="op">$</span>income_decile[bagay<span class="op">$</span>V239 <span class="op">==</span><span class="st"> &quot;Fifth step&quot;</span>] &lt;-<span class="st"> </span><span class="dv">5</span></a>
-<a class="sourceLine" id="cb23-11" data-line-number="11">bagay<span class="op">$</span>income_decile[bagay<span class="op">$</span>V239 <span class="op">==</span><span class="st"> &quot;Sixth step&quot;</span>] &lt;-<span class="st"> </span><span class="dv">6</span></a>
-<a class="sourceLine" id="cb23-12" data-line-number="12">bagay<span class="op">$</span>income_decile[bagay<span class="op">$</span>V239 <span class="op">==</span><span class="st"> &quot;Seventh step&quot;</span>] &lt;-<span class="st"> </span><span class="dv">7</span></a>
-<a class="sourceLine" id="cb23-13" data-line-number="13">bagay<span class="op">$</span>income_decile[bagay<span class="op">$</span>V239 <span class="op">==</span><span class="st"> &quot;Eigth step&quot;</span>] &lt;-<span class="st"> </span><span class="dv">8</span></a>
-<a class="sourceLine" id="cb23-14" data-line-number="14">bagay<span class="op">$</span>income_decile[bagay<span class="op">$</span>V239 <span class="op">==</span><span class="st"> &quot;Nineth step&quot;</span>] &lt;-<span class="st"> </span><span class="dv">9</span></a>
-<a class="sourceLine" id="cb23-15" data-line-number="15">bagay<span class="op">$</span>income_decile[bagay<span class="op">$</span>V239 <span class="op">==</span><span class="st"> &quot;Tenth step&quot;</span>] &lt;-<span class="st"> </span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb23-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb23-17" data-line-number="17"><span class="co"># </span></a>
-<a class="sourceLine" id="cb23-18" data-line-number="18"><span class="kw">str</span>(bagay<span class="op">$</span>income_decile)</a>
-<a class="sourceLine" id="cb23-19" data-line-number="19"><span class="kw">ftab</span>(bagay<span class="op">$</span>income_decile)</a>
-<a class="sourceLine" id="cb23-20" data-line-number="20"><span class="kw">ftab</span>(bagay<span class="op">$</span>V239)</a>
-<a class="sourceLine" id="cb23-21" data-line-number="21"><span class="co"># ok. </span></a></code></pre></div>
-<p><br></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="co"># V239. Income</span></a>
+<a class="sourceLine" id="cb29-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb29-3" data-line-number="3"><span class="kw">ftab</span>(bagay<span class="op">$</span>V239)</a>
+<a class="sourceLine" id="cb29-4" data-line-number="4"><span class="co"># </span></a>
+<a class="sourceLine" id="cb29-5" data-line-number="5">bagay<span class="op">$</span>income_decile  &lt;-<span class="st"> </span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb29-6" data-line-number="6">bagay<span class="op">$</span>income_decile[bagay<span class="op">$</span>V239 <span class="op">==</span><span class="st"> &quot;Lower step&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb29-7" data-line-number="7">bagay<span class="op">$</span>income_decile[bagay<span class="op">$</span>V239 <span class="op">==</span><span class="st"> &quot;second step&quot;</span>] &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb29-8" data-line-number="8">bagay<span class="op">$</span>income_decile[bagay<span class="op">$</span>V239 <span class="op">==</span><span class="st"> &quot;Third step&quot;</span>] &lt;-<span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb29-9" data-line-number="9">bagay<span class="op">$</span>income_decile[bagay<span class="op">$</span>V239 <span class="op">==</span><span class="st"> &quot;Fourth step&quot;</span>] &lt;-<span class="st"> </span><span class="dv">4</span></a>
+<a class="sourceLine" id="cb29-10" data-line-number="10">bagay<span class="op">$</span>income_decile[bagay<span class="op">$</span>V239 <span class="op">==</span><span class="st"> &quot;Fifth step&quot;</span>] &lt;-<span class="st"> </span><span class="dv">5</span></a>
+<a class="sourceLine" id="cb29-11" data-line-number="11">bagay<span class="op">$</span>income_decile[bagay<span class="op">$</span>V239 <span class="op">==</span><span class="st"> &quot;Sixth step&quot;</span>] &lt;-<span class="st"> </span><span class="dv">6</span></a>
+<a class="sourceLine" id="cb29-12" data-line-number="12">bagay<span class="op">$</span>income_decile[bagay<span class="op">$</span>V239 <span class="op">==</span><span class="st"> &quot;Seventh step&quot;</span>] &lt;-<span class="st"> </span><span class="dv">7</span></a>
+<a class="sourceLine" id="cb29-13" data-line-number="13">bagay<span class="op">$</span>income_decile[bagay<span class="op">$</span>V239 <span class="op">==</span><span class="st"> &quot;Eigth step&quot;</span>] &lt;-<span class="st"> </span><span class="dv">8</span></a>
+<a class="sourceLine" id="cb29-14" data-line-number="14">bagay<span class="op">$</span>income_decile[bagay<span class="op">$</span>V239 <span class="op">==</span><span class="st"> &quot;Nineth step&quot;</span>] &lt;-<span class="st"> </span><span class="dv">9</span></a>
+<a class="sourceLine" id="cb29-15" data-line-number="15">bagay<span class="op">$</span>income_decile[bagay<span class="op">$</span>V239 <span class="op">==</span><span class="st"> &quot;Tenth step&quot;</span>] &lt;-<span class="st"> </span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb29-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb29-17" data-line-number="17"><span class="co"># </span></a>
+<a class="sourceLine" id="cb29-18" data-line-number="18"><span class="kw">str</span>(bagay<span class="op">$</span>income_decile)</a>
+<a class="sourceLine" id="cb29-19" data-line-number="19"><span class="kw">ftab</span>(bagay<span class="op">$</span>income_decile)</a>
+<a class="sourceLine" id="cb29-20" data-line-number="20"><span class="kw">ftab</span>(bagay<span class="op">$</span>V239)</a>
+<a class="sourceLine" id="cb29-21" data-line-number="21"><span class="co"># ok. </span></a></code></pre></div>
 <p><br></p>
 </div>
-<div id="next-education" class="section level2">
-<h2><span class="header-section-number">4.12</span> NEXT ====&gt; Education</h2>
-<p>“What is the highest educational level that you have attained?</p>
-<ul>
-<li>1=low;<br />
-</li>
-<li>2=medium;<br />
-</li>
-<li>3=high.</li>
-</ul>
-<p><strong>It’s very unclear how Sarkissian decided to code low/medium/high education here. She did not say how she coded it. Seems arbitrary. I can do my own, no ones cares, really!</strong></p>
+<div id="education" class="section level2">
+<h2><span class="header-section-number">4.12</span> Education</h2>
+<p><code>From page 20 of documentation</code>:</p>
+<p><code>V258. Weight variable (Provide a 4-digit weight variable to correct your sample</code> <code>to reflect national distributions of key variables. If no weighting is necessary,</code> <code>simply code each case as “1.” It is especially important to correct for education.</code> <code>For example, if your sample contains 10 percent more university-educated respondents</code> <code>as there are in the adult population, members of this group should be downweighted</code> <code>by 10 percent, giving them a weight of .90).</code></p>
+<pre><code>    “What is the highest educational level that you have attained?    
+
+      1 = low;    
+      2 = medium;   
+      3 = high.  </code></pre>
+<p><strong>It’s very unclear how Sarkissian decided to code low/medium/high education here. She did not say how she coded it. Seems arbitrary. I can do my own.</strong></p>
 <p><br></p>
-<p>`V248. What is the highest educational level that you have attained?</p>
-<p><strong>NOTE</strong>: if respondent indicates to be a student, code highest level s/he expects to complete)`</p>
+<p><code>V248. What is the highest educational level that you have attained?</code></p>
+<p><strong>NOTE</strong>: if respondent indicates to be a student, code highest level s/he expects to complete)</p>
 <p><br></p>
-<ol style="list-style-type: decimal">
-<li>No formal education</li>
-<li>Incomplete primary school</li>
-<li>Complete primary school</li>
-<li>Incomplete secondary school: technical/vocational type</li>
-<li>Complete secondary school: technical/vocational type</li>
-<li>Incomplete secondary: university-preparatory type</li>
-<li>Complete secondary: university-preparatory type</li>
-<li>Some university-level education, without degree</li>
-<li>University-level education, with degree</li>
-</ol>
+<pre><code>      1. No formal education
+      2. Incomplete primary school
+      3. Complete primary school
+      4. Incomplete secondary school: technical/vocational type
+      5. Complete secondary school: technical/vocational type
+      6. Incomplete secondary: university-preparatory type
+      7. Complete secondary: university-preparatory type
+      8. Some university-level education, without degree
+      9. University-level education, with degree</code></pre>
 <p><br></p>
-<div id="save-data-again-at-this-stage-so-that-we-dont-need-to-read-it-from-raw-data-each-time" class="section level4">
-<h4><span class="header-section-number">4.12.0.1</span> Save data again (at this stage) so that we don’t need to read it from raw data each time:</h4>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="co"># V248. Education</span></a>
+<a class="sourceLine" id="cb32-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb32-3" data-line-number="3"><span class="kw">ftab</span>(bagay<span class="op">$</span>V248)</a>
+<a class="sourceLine" id="cb32-4" data-line-number="4"><span class="co"># </span></a>
+<a class="sourceLine" id="cb32-5" data-line-number="5"><span class="co"># 1 = low;   ===========&gt; No formal education | Incomplete primary school | Complete primary school </span></a>
+<a class="sourceLine" id="cb32-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb32-7" data-line-number="7"><span class="co"># 2 = medium; ==========&gt;  Incomplete secondary school: technical/vocational type | Complete secondary school: technical/vocational type | Incomplete secondary: university-preparatory type</span></a>
+<a class="sourceLine" id="cb32-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb32-9" data-line-number="9"><span class="co"># 3 = high =============&gt; Complete secondary: university-preparatory type | Some university-level education, without degree | University-level education, with degree</span></a>
+<a class="sourceLine" id="cb32-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb32-11" data-line-number="11"><span class="co"># </span></a>
+<a class="sourceLine" id="cb32-12" data-line-number="12">bagay<span class="op">$</span>educ &lt;-<span class="st"> </span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb32-13" data-line-number="13">  </a>
+<a class="sourceLine" id="cb32-14" data-line-number="14">bagay<span class="op">$</span>educ[ bagay<span class="op">$</span>V248 <span class="op">==</span><span class="st"> &quot;No formal education&quot;</span></a>
+<a class="sourceLine" id="cb32-15" data-line-number="15">               <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V248 <span class="op">==</span><span class="st"> &quot;Incomplete primary school&quot;</span> </a>
+<a class="sourceLine" id="cb32-16" data-line-number="16">               <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V248 <span class="op">==</span><span class="st"> &quot;Complete primary school&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span> </a>
+<a class="sourceLine" id="cb32-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb32-18" data-line-number="18">bagay<span class="op">$</span>educ[ bagay<span class="op">$</span>V248 <span class="op">==</span><span class="st"> &quot;Incomplete secondary school: technical/ vocational type&quot;</span> </a>
+<a class="sourceLine" id="cb32-19" data-line-number="19">               <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V248 <span class="op">==</span><span class="st"> &quot;Complete secondary school: technical/ vocational type&quot;</span> </a>
+<a class="sourceLine" id="cb32-20" data-line-number="20">               <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V248 <span class="op">==</span><span class="st"> &quot;Incomplete secondary school: university-preparatory type&quot;</span>] &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb32-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb32-22" data-line-number="22">bagay<span class="op">$</span>educ[ bagay<span class="op">$</span>V248 <span class="op">==</span><span class="st"> &quot;Complete secondary school: university-preparatory type&quot;</span> </a>
+<a class="sourceLine" id="cb32-23" data-line-number="23">               <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V248 <span class="op">==</span><span class="st"> &quot;Some university-level education, without degree&quot;</span> </a>
+<a class="sourceLine" id="cb32-24" data-line-number="24">               <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V248 <span class="op">==</span><span class="st"> &quot;University - level education, with degree&quot;</span>] &lt;-<span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb32-25" data-line-number="25"><span class="co"># </span></a>
+<a class="sourceLine" id="cb32-26" data-line-number="26"><span class="kw">ftab</span>(bagay<span class="op">$</span>educ)</a>
+<a class="sourceLine" id="cb32-27" data-line-number="27"><span class="kw">ftab</span>(bagay<span class="op">$</span>V248)</a>
+<a class="sourceLine" id="cb32-28" data-line-number="28"> <span class="co">#  1    2    3   &lt;NA&gt; </span></a>
+<a class="sourceLine" id="cb32-29" data-line-number="29"> <span class="co"># 659 1048  288    1 </span></a>
+<a class="sourceLine" id="cb32-30" data-line-number="30"></a>
+<a class="sourceLine" id="cb32-31" data-line-number="31"><span class="co"># ok. </span></a></code></pre></div>
 <p><br></p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">save</span>(bagay, <span class="dt">file=</span><span class="st">&quot;WVS-Haiti2016.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb24-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb24-3" data-line-number="3"><span class="co">#  for reproducibility's sake, let's record the session info:</span></a>
-<a class="sourceLine" id="cb24-4" data-line-number="4"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+</div>
+<div id="subjective-social-class" class="section level2">
+<h2><span class="header-section-number">4.13</span> Subjective Social Class</h2>
+<p><code>NOTE==&gt; (Sarkissian only used this because it was difficult t obtain income data)</code>.</p>
+<p>I am recoding it here for exploratory purposes.</p>
+<p><code>V238. People sometimes describe themselves as belonging to the working class,</code> <code>the middle class, or the upper or lower class. Would you describe yourself as</code> <code>belonging to the (read out and code one answer):</code></p>
+<pre><code>        1  Upper class
+        2  Upper middle class
+        3  Lower middle class
+        4  Working class
+        5  Lower class</code></pre>
+<p>I am reversing the emphatic order of these levels in my own recode (e.g. upper class now will be assigned “5” as opposed to “1”)</p>
+<p><br></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="co"># V238. social class</span></a>
+<a class="sourceLine" id="cb34-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb34-3" data-line-number="3"><span class="kw">ftab</span>(bagay<span class="op">$</span>V238)</a>
+<a class="sourceLine" id="cb34-4" data-line-number="4"><span class="co"># </span></a>
+<a class="sourceLine" id="cb34-5" data-line-number="5">bagay<span class="op">$</span>social_class  &lt;-<span class="st"> </span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb34-6" data-line-number="6">bagay<span class="op">$</span>social_class[bagay<span class="op">$</span>V238 <span class="op">==</span><span class="st"> &quot;Upper class&quot;</span>] &lt;-<span class="st"> </span><span class="dv">5</span></a>
+<a class="sourceLine" id="cb34-7" data-line-number="7">bagay<span class="op">$</span>social_class[bagay<span class="op">$</span>V238 <span class="op">==</span><span class="st"> &quot;Upper middle class&quot;</span>] &lt;-<span class="st"> </span><span class="dv">4</span></a>
+<a class="sourceLine" id="cb34-8" data-line-number="8">bagay<span class="op">$</span>social_class[bagay<span class="op">$</span>V238 <span class="op">==</span><span class="st"> &quot;Lower middle class&quot;</span>] &lt;-<span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb34-9" data-line-number="9">bagay<span class="op">$</span>social_class[bagay<span class="op">$</span>V238 <span class="op">==</span><span class="st"> &quot;Working class&quot;</span>] &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb34-10" data-line-number="10">bagay<span class="op">$</span>social_class[bagay<span class="op">$</span>V238 <span class="op">==</span><span class="st"> &quot;Lower class&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb34-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb34-12" data-line-number="12"><span class="co"># </span></a>
+<a class="sourceLine" id="cb34-13" data-line-number="13"><span class="kw">str</span>(bagay<span class="op">$</span>social_class)</a>
+<a class="sourceLine" id="cb34-14" data-line-number="14"><span class="kw">ftab</span>(bagay<span class="op">$</span>social_class)</a>
+<a class="sourceLine" id="cb34-15" data-line-number="15"><span class="kw">ftab</span>(bagay<span class="op">$</span>V238)</a>
+<a class="sourceLine" id="cb34-16" data-line-number="16"><span class="co"># ok. </span></a></code></pre></div>
+<p><br></p>
+</div>
+<div id="lives-with-parents" class="section level2">
+<h2><span class="header-section-number">4.14</span> Lives with parents</h2>
+<p><code>V250. Do you live with your parents? (Code one answer):</code></p>
+<pre><code>  1   Yes
+  2   No</code></pre>
+<p><br></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="co"># V250. Lives with parents  </span></a>
+<a class="sourceLine" id="cb36-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb36-3" data-line-number="3"><span class="kw">ftab</span>(bagay<span class="op">$</span>V250)</a>
+<a class="sourceLine" id="cb36-4" data-line-number="4"><span class="co"># </span></a>
+<a class="sourceLine" id="cb36-5" data-line-number="5">bagay<span class="op">$</span>lives_with_parents  &lt;-<span class="st"> </span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb36-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb36-7" data-line-number="7">bagay<span class="op">$</span>lives_with_parents[bagay<span class="op">$</span>V250 <span class="op">==</span><span class="st"> &quot;No&quot;</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb36-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb36-9" data-line-number="9">bagay<span class="op">$</span>lives_with_parents[bagay<span class="op">$</span>V250 <span class="op">==</span><span class="st"> &quot;Yes&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb36-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb36-11" data-line-number="11"><span class="co"># </span></a>
+<a class="sourceLine" id="cb36-12" data-line-number="12"><span class="kw">str</span>(bagay<span class="op">$</span>lives_with_parents)</a>
+<a class="sourceLine" id="cb36-13" data-line-number="13"><span class="kw">ftab</span>(bagay<span class="op">$</span>lives_with_parents)</a>
+<a class="sourceLine" id="cb36-14" data-line-number="14"><span class="kw">ftab</span>(bagay<span class="op">$</span>V250)</a>
+<a class="sourceLine" id="cb36-15" data-line-number="15"><span class="co"># ok. </span></a></code></pre></div>
+<p><br></p>
+</div>
+<div id="population-size" class="section level2">
+<h2><span class="header-section-number">4.15</span> Population size</h2>
+<p><code>:: (NOT IN SARKISSIAN”S)::</code></p>
+<p><code>V253. (Code size of town):</code></p>
+<pre><code>        - 1 Under 2,000
+        - 2 2,000 - 5,000
+        - 3 5 - 10,000
+        - 4 10 - 20,000
+        - 5 20 - 50,000
+        - 6 50 - 100,000
+        - 7 100 - 500,000
+        - 8 500,000 and more</code></pre>
+<p>This is already in the correct emphatic order.</p>
+<p><br></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="co"># V253. Population size</span></a>
+<a class="sourceLine" id="cb38-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb38-3" data-line-number="3"><span class="kw">ftab</span>(bagay<span class="op">$</span>V253)</a>
+<a class="sourceLine" id="cb38-4" data-line-number="4"><span class="co"># </span></a>
+<a class="sourceLine" id="cb38-5" data-line-number="5">bagay<span class="op">$</span>pop_size  &lt;-<span class="st"> </span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb38-6" data-line-number="6">bagay<span class="op">$</span>pop_size[bagay<span class="op">$</span>V253 <span class="op">==</span><span class="st"> &quot;Under 2,000&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb38-7" data-line-number="7">bagay<span class="op">$</span>pop_size[bagay<span class="op">$</span>V253 <span class="op">==</span><span class="st"> &quot;2,000-5,000&quot;</span>] &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb38-8" data-line-number="8">bagay<span class="op">$</span>pop_size[bagay<span class="op">$</span>V253 <span class="op">==</span><span class="st"> &quot;5,000-10,000&quot;</span>] &lt;-<span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb38-9" data-line-number="9">bagay<span class="op">$</span>pop_size[bagay<span class="op">$</span>V253 <span class="op">==</span><span class="st"> &quot;10,000-20,000&quot;</span>] &lt;-<span class="st"> </span><span class="dv">4</span></a>
+<a class="sourceLine" id="cb38-10" data-line-number="10">bagay<span class="op">$</span>pop_size[bagay<span class="op">$</span>V253 <span class="op">==</span><span class="st"> &quot;20,000-50,000&quot;</span>] &lt;-<span class="st"> </span><span class="dv">5</span></a>
+<a class="sourceLine" id="cb38-11" data-line-number="11">bagay<span class="op">$</span>pop_size[bagay<span class="op">$</span>V253 <span class="op">==</span><span class="st"> &quot;50,000-100,000&quot;</span>] &lt;-<span class="st"> </span><span class="dv">6</span></a>
+<a class="sourceLine" id="cb38-12" data-line-number="12">bagay<span class="op">$</span>pop_size[bagay<span class="op">$</span>V253 <span class="op">==</span><span class="st"> &quot;100,000-500,000&quot;</span>] &lt;-<span class="st"> </span><span class="dv">7</span></a>
+<a class="sourceLine" id="cb38-13" data-line-number="13">bagay<span class="op">$</span>pop_size[bagay<span class="op">$</span>V253 <span class="op">==</span><span class="st"> &quot;500,000 and more&quot;</span>] &lt;-<span class="st"> </span><span class="dv">8</span></a>
+<a class="sourceLine" id="cb38-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb38-15" data-line-number="15"><span class="co"># </span></a>
+<a class="sourceLine" id="cb38-16" data-line-number="16"><span class="kw">str</span>(bagay<span class="op">$</span>pop_size)</a>
+<a class="sourceLine" id="cb38-17" data-line-number="17"><span class="kw">ftab</span>(bagay<span class="op">$</span>pop_size)</a>
+<a class="sourceLine" id="cb38-18" data-line-number="18"><span class="kw">ftab</span>(bagay<span class="op">$</span>V253)</a>
+<a class="sourceLine" id="cb38-19" data-line-number="19"><span class="co"># ok. </span></a></code></pre></div>
+<p><br></p>
+</div>
+<div id="ethnicity" class="section level2">
+<h2><span class="header-section-number">4.16</span> Ethnicity</h2>
+<p><code>::(NOT IN SARKISSIAN”S)::</code></p>
+<p><code>V254. (Code ethnic group by observation, modify for your own society):</code></p>
+<pre><code>      - 1 Black
+      - 2 White Haitian
+      - 3 Mulatto
+      - 4 Asian
+      - 5 Other (write in): _____________________________</code></pre>
+<p>I am only recoding this for exploratory purposes and to get an idea of how representative the sample is.</p>
+<p><br></p>
+<p>According to the CIA World FactBook, Haiti’s population is:</p>
+<pre><code>    - 95%  black 
+    - 5%   mixed &amp; white 
+    
+    </code></pre>
+<p><br></p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="co"># V254. Ethnicity  </span></a>
+<a class="sourceLine" id="cb41-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb41-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb41-4" data-line-number="4"><span class="co">#  MY RECODE:</span></a>
+<a class="sourceLine" id="cb41-5" data-line-number="5"><span class="co"># - 1 Black</span></a>
+<a class="sourceLine" id="cb41-6" data-line-number="6"><span class="co"># - 2 White Haitian / mulatto</span></a>
+<a class="sourceLine" id="cb41-7" data-line-number="7"><span class="co"># - 3 other</span></a>
+<a class="sourceLine" id="cb41-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb41-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb41-10" data-line-number="10"><span class="kw">ftab</span>(bagay<span class="op">$</span>V254)</a>
+<a class="sourceLine" id="cb41-11" data-line-number="11"><span class="co"># </span></a>
+<a class="sourceLine" id="cb41-12" data-line-number="12">bagay<span class="op">$</span>ethnicity  &lt;-<span class="st"> </span><span class="ot">NA</span>   </a>
+<a class="sourceLine" id="cb41-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb41-14" data-line-number="14">bagay<span class="op">$</span>ethnicity[bagay<span class="op">$</span>V254 <span class="op">==</span><span class="st"> &quot;Black-Other / Black&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb41-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb41-16" data-line-number="16">bagay<span class="op">$</span>ethnicity[bagay<span class="op">$</span>V254 <span class="op">==</span><span class="st"> &quot;HT: Mixed Race (Mullato) Haitian&quot;</span> <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V254 <span class="op">==</span><span class="st"> &quot;HT: White Haitian&quot;</span>] &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb41-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb41-18" data-line-number="18">bagay<span class="op">$</span>ethnicity[bagay<span class="op">$</span>V254 <span class="op">==</span><span class="st"> &quot;Other&quot;</span> <span class="op">|</span><span class="st"> </span>bagay<span class="op">$</span>V254 <span class="op">==</span><span class="st"> &quot;HT: Asian/Middle Eastern&quot;</span>] &lt;-<span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb41-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb41-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb41-21" data-line-number="21"><span class="co"># </span></a>
+<a class="sourceLine" id="cb41-22" data-line-number="22"><span class="kw">str</span>(bagay<span class="op">$</span>ethnicity)</a>
+<a class="sourceLine" id="cb41-23" data-line-number="23"><span class="kw">ftab</span>(bagay<span class="op">$</span>ethnicity)</a>
+<a class="sourceLine" id="cb41-24" data-line-number="24"><span class="kw">ftab</span>(bagay<span class="op">$</span>V254)</a>
+<a class="sourceLine" id="cb41-25" data-line-number="25"><span class="co"># ok. </span></a></code></pre></div>
+<p><br></p>
+<p>In terms of ethnic groups, the sample is representative:</p>
+<pre><code>    - 1932/1996 ====&gt; 96% Black   
+    - 60/1996 ======&gt; 3% white/Mulatto   </code></pre>
+<p><code>The CIA estimates are from 2018 and these figures in the smaple are from 2016.</code> <code>It should not make a big difference, but the estimates are close enough</code></p>
+<p><br></p>
+<div id="save-the-tidy-data-again-in-the-correct-folder" class="section level4">
+<h4><span class="header-section-number">4.16.0.1</span> Save the tidy data again in the correct folder:</h4>
+<p><br></p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="co"># save a copy here in `raw-code` : </span></a>
+<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="kw">save</span>(bagay, <span class="dt">file =</span> <span class="st">&quot;tidy-WVS-Haiti2016.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb43-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb43-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb43-5" data-line-number="5"><span class="co"># change directory to save another copy in `tidy-data`  </span></a>
+<a class="sourceLine" id="cb43-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb43-7" data-line-number="7"><span class="kw">setwd</span>(<span class="st">&quot;/cloud/project/religion-civic-Haiti/data/tidy-data&quot;</span>)</a>
+<a class="sourceLine" id="cb43-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb43-9" data-line-number="9"><span class="kw">save</span>(bagay, <span class="dt">file =</span> <span class="st">&quot;tidy-WVS-Haiti2016.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb43-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb43-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb43-12" data-line-number="12"><span class="co">#  return to the original directory</span></a>
+<a class="sourceLine" id="cb43-13" data-line-number="13"><span class="kw">setwd</span>(<span class="st">&quot;/cloud/project/religion-civic-Haiti/code/raw-code&quot;</span>)</a>
+<a class="sourceLine" id="cb43-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb43-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb43-16" data-line-number="16"><span class="co">#  for reproducibility's sake, let's record the session info:</span></a>
+<a class="sourceLine" id="cb43-17" data-line-number="17"><span class="kw">sessionInfo</span>()</a></code></pre></div>
 <pre><code>## R version 3.6.0 (2019-04-26)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 16.04.6 LTS
@@ -2220,13 +2382,13 @@ div.tocify {
 ##  [9] yaml_2.2.0       rlang_0.4.0      pillar_1.4.2     glue_1.3.1      
 ## [13] withr_2.1.2      modelr_0.1.4     readxl_1.3.1     munsell_0.5.0   
 ## [17] gtable_0.3.0     cellranger_1.1.0 rvest_0.3.4      evaluate_0.14   
-## [21] labeling_0.3     knitr_1.23       Rcpp_1.0.2       scales_1.0.0    
-## [25] backports_1.1.4  jsonlite_1.6     hms_0.5.0        digest_0.6.20   
-## [29] stringi_1.4.3    visdat_0.5.3     grid_3.6.0       cli_1.1.0       
-## [33] tools_3.6.0      magrittr_1.5     lazyeval_0.2.2   crayon_1.3.4    
-## [37] pkgconfig_2.0.2  zeallot_0.1.0    xml2_1.2.1       lubridate_1.7.4 
-## [41] assertthat_0.2.1 rmarkdown_1.14   httr_1.4.0       rstudioapi_0.10 
-## [45] R6_2.4.0         nlme_3.1-139     compiler_3.6.0</code></pre>
+## [21] knitr_1.23       Rcpp_1.0.2       scales_1.0.0     backports_1.1.4 
+## [25] jsonlite_1.6     hms_0.5.0        digest_0.6.20    stringi_1.4.3   
+## [29] visdat_0.5.3     grid_3.6.0       cli_1.1.0        tools_3.6.0     
+## [33] magrittr_1.5     lazyeval_0.2.2   crayon_1.3.4     pkgconfig_2.0.2 
+## [37] zeallot_0.1.0    xml2_1.2.1       lubridate_1.7.4  assertthat_0.2.1
+## [41] rmarkdown_1.14   httr_1.4.0       rstudioapi_0.10  R6_2.4.0        
+## [45] nlme_3.1-139     compiler_3.6.0</code></pre>
 <p><br></p>
 </div>
 </div>
