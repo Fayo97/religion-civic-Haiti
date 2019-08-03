@@ -1,0 +1,702 @@
+---
+title: 01-Haiti wvs2016 data cleaning
+subtitle: relig-civ-eng-Haiti paper
+author: "Raph M."
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
+output:
+  html_document:
+    css: lab.css
+    highlight: pygments
+    theme: cerulean
+    toc: true
+    toc_float: true
+    smooth_scroll: true
+    number_sections: true
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+<br>
+
+# Load packages
+
+```{r load-pkgs, echo =TRUE, include=TRUE, warning=FALSE, message=FALSE}
+suppressPackageStartupMessages (library(foreign))
+library(data.table)
+library(tidyverse)
+library(broom)
+library(skimr)
+library(janitor)
+# install.packages("devtools")
+# devtools::install_github("thomasp85/patchwork")
+library(patchwork)
+```
+<br>
+
+# Call the data file
+
+```{r 01-data, echo = TRUE, include = TRUE, warning = FALSE}
+setwd("/cloud/project/religion-civic-Haiti/code/raw-code")
+# 
+bagay <- read.dta("WV6_Haiti_2016.dta")
+
+## Convert it into data.table for more efficient data analyses
+bagay <- data.table(bagay)
+
+# skim(bagay)
+
+dim(bagay)
+# head(bagay[, 25:35])
+
+
+#  define a simpler function for tabulations that shows all NAs
+ftab <- function(x){
+  a <- table(x, useNA = "always")
+  return (a)
+}
+```
+<br>
+
+# Get a sense of missingness in this data set
+
+```{r missing, echo = TRUE, include=TRUE, warning=FALSE, results='markup', message=FALSE}
+numo <- nrow(bagay)
+ncomplete = sum(complete.cases(bagay))
+ncomplete/numo
+# 1   ==> which means 100% complete 
+#  this shows that every row is complete and that there are no missing values. but that's grossly misleading. 
+
+# install.packages("naniar")
+library(naniar)
+## visualize missingness
+# vis_miss(bagay[1:100])  # uncomment and play with the range as needed
+
+# This shows clearly that: The missing values here are coded not as NA but as several different options depending on the variables.
+
+# So we will have to deal with missingness one variable at a time as we encounter them.  
+
+```
+<br>
+
+# Recode variables 
+    
+    
+## Secular Association Participation  
+<br>
+I detail out each specific secular group as a sub-dummy before coding it like Sarkissian did ==> as an overall dummy: 1 = respondent belongs to any of the secular groups below; 0 = they don't belong.
+
+I will then use these sub-dummies to code the overall dummy for secular organizations later.   
+<br>
+
+### Part 1: secular sub-dummies 
+<br>
+
+<!-- When you wantt your code to shoiw but not the results ==> use this chunk header -->
+
+```{r secular-sub, echo =TRUE, include=TRUE, warning=FALSE, results='hide'}
+
+# %%%%%%%%%%%%%%%% PART 1: SUB-DUMMIES %%%%%%%%%%%%%%%%
+
+# V26. Sport or recreational organization
+bagay$sport_member <- NA
+bagay$sport_member[bagay$V26 == "Not a member"] <- 0
+bagay$sport_member[bagay$V26 == "Inactive member" | bagay$V26 =="Active member"] <- 1
+ftab(bagay$V26)
+ftab(bagay$sport_member)
+#  ok
+
+# V27. Art, music or educational organization
+bagay$art_member <- NA
+bagay$art_member[bagay$V27 == "Not a member"] <- 0
+bagay$art_member[bagay$V27 == "Inactive member" | bagay$V27 =="Active member"] <- 1
+ftab(bagay$V27)
+ftab(bagay$art_member)
+#  ok
+
+# V28. Labor Union
+bagay$union_member <- NA
+bagay$union_member[bagay$V28 == "Not a member"] <- 0
+bagay$union_member[bagay$V28 == "Inactive member" | bagay$V28 =="Active member"] <- 1
+ftab(bagay$V28)
+ftab(bagay$union_member)
+#  ok
+
+# V29. Political party
+bagay$pol_party_member <- NA
+bagay$pol_party_member[bagay$V29 == "Not a member"] <- 0
+bagay$pol_party_member[bagay$V29 == "Inactive member" | bagay$V29 =="Active member"] <- 1
+ftab(bagay$V29)
+ftab(bagay$pol_party_member)
+#  ok
+
+# V30. Environmental organization
+bagay$environ_member <- NA
+bagay$environ_member[bagay$V30 == "Not a member"] <- 0
+bagay$environ_member[bagay$V30 == "Inactive member" | bagay$V30 =="Active member"] <- 1
+ftab(bagay$V30)
+ftab(bagay$environ_member)
+#  ok
+
+# V31. Professional association
+bagay$pro_member <- NA
+bagay$pro_member[bagay$V31 == "Not a member"] <- 0
+bagay$pro_member[bagay$V31 == "Inactive member" | bagay$V31 =="Active member"] <- 1
+ftab(bagay$V31)
+ftab(bagay$pro_member)
+# ok
+
+# V32. Humanitarian or charitable organization
+bagay$charity_member <- NA
+bagay$charity_member[bagay$V32 == "Not a member"] <- 0
+bagay$charity_member[bagay$V32 == "Inactive member" | bagay$V32 =="Active member"] <- 1
+ftab(bagay$V32)
+ftab(bagay$charity_member)
+#  ok
+
+# V33. Consumer organization
+bagay$consumer_member <- NA
+bagay$consumer_member[bagay$V33 == "Not a member"] <- 0
+bagay$consumer_member[bagay$V33 == "Inactive member" | bagay$V33 =="Active member"] <- 1
+ftab(bagay$V33)
+ftab(bagay$consumer_member)
+
+# V34. Self-help group, mutual aid group
+bagay$self_help_member <- NA
+bagay$self_help_member[bagay$V34 == "Not a member"] <- 0
+bagay$self_help_member[bagay$V34 == "Inactive member" | bagay$V34 =="Active member"] <- 1
+ftab(bagay$V34)
+ftab(bagay$self_help_member)
+#  ok
+
+# V35. Other organization
+bagay$other_org_member <- NA  
+bagay$other_org_member[bagay$V35 == "Not a member"] <- 0
+bagay$other_org_member[bagay$V35 == "Inactive member" | bagay$V35 =="Active member"] <- 1
+ftab(bagay$V35)
+ftab(bagay$other_org_member)
+
+```
+<br>
+
+### Part 2: overall secular dummy 
+
+```{r secular-overall, warning=FALSE, echo = TRUE, results='hide'}
+names(bagay)
+# idx <- bagay %>% select(relig_member, sport_member, art_member, union_member, pol_party_member, environ_member, pro_member,     
+#                         charity_member, consumer_member, self_help_member, other_org_member)
+# names(idx)
+
+dim(bagay)
+# 
+# With a for loop I would need this:
+# I need to fill a new column in the df as follows:
+# for every row in df {
+# do this: 
+# -  look at the value in each of these variables {11 variables}
+# - if the value in *any one of these variables* is 1 assign the value 1 to the new variable
+# - if the value in *all of all of these variables is 0* assign the value 0 to the new variable 
+# -- if the value in *all of all of these variables is NA* assign the value NA to the new variable 
+# 		
+# }
+
+bagay$secular <- NA
+bagay$secular[ bagay$sport_member == 0
+              & bagay$art_member == 0 & bagay$union_member == 0
+              & bagay$pol_party_member == 0 & bagay$environ_member == 0 
+              & bagay$pro_member ==0 & bagay$charity_member == 0 
+              & bagay$consumer_member == 0 & bagay$self_help_member == 0 
+              & bagay$other_org_member == 0]  <- 0 
+  
+bagay$secular[ bagay$sport_member == 1 
+              |  bagay$art_member == 1 |  bagay$union_member == 1
+              |  bagay$pol_party_member == 1 |  bagay$environ_member == 1
+              |  bagay$pro_member ==1  |  bagay$charity_member == 1 
+              |  bagay$consumer_member == 1 |  bagay$self_help_member == 1 
+              |  bagay$other_org_member == 1]  <- 1
+
+ftab(bagay$secular)
+
+head(bagay[1:4, 431:440])
+str(bagay$secular)
+
+# bagay$tmp <- as.factor(bagay$secular)
+# ftab(bagay$tmp)
+# bagay <- bagay %>% select(-tmp)
+# names(bagay)
+
+#  prelim. exploratory plot 0.1
+ggplot(bagay, aes(x=secular, na.rm = TRUE)) + 
+  geom_bar(fill=c("navy", "brown")) + 
+  labs(x= "membership in secular organization") +
+  theme_bw()
+
+# ok
+```
+<br>
+
+#### Save data at this stage so that we do not need to read it from raw data each time
+
+```{r saving1, warning=FALSE, echo = TRUE, results='hide'}
+save(bagay, file="WVS-Haiti2016.csv")
+
+#  we will keep on writing over this file to update it at various stages of the data clenaing process.
+```    
+<br>  
+
+## Signed a petition, joined in boycotts, peaceful demonstrations, strikes or other protests  
+<br>
+  
+The 2016 WVS-Haiti contains five related questions asking participants whether or not they have signed petitions, joined in boycotts, attended peaceful demonstrations or joined strikes in the past year. These can be examined separately, each as a dummy variable (Sarkissian did in her analysis -- but she only had three such questions for the countries she picked). Or they can be combined in any manner that seems reasonable ==> for example:   
+
+<br>
+
++ signed a petition or joined in boycotts
++ joined in peaceful demonstrations or strikes 
++ other protests
+`This "other" category could always include things the authorities consider to be riots or unpeaceful protests`. 
+
+<br>
+
+`Sarkissian's prose`: "While these activities are not often used to measure participation in more established democracies, they may help to capture the potential for political engagement in the presence of more competitive politics. In the case of joining boycotts, this might include boycotting elections in which some parties are not allowed to compete, as has been common insome Middle Eastern and African countries."
+
+<br>
+
+I agree. These activities may reflect political engagement based on party-politics (find documentation from the New York Times that opposition candidates hire hoodlums to boycott elections or terrorize the population on election day...), socio-economic strife, etc.
+
+<br>
+```{r petition, warning=FALSE, echo = TRUE, results='hide'}
+ftab(bagay$V87)
+# ggplot(bagay, aes(V85)) + geom_bar()
+
+
+# V85. Signing a petition
+bagay$petition <- NA
+bagay$petition[bagay$V85 == "Might do" | bagay$V85 =="Would never do"] <- 0
+bagay$petition[bagay$V85 == "Have done"] <- 1
+
+ftab(bagay$petition)
+ftab(bagay$V85)
+
+# V86. Joining in boycotts
+bagay$boycotts <- NA
+bagay$boycotts[bagay$V86 == "Might do" | bagay$V86 =="Would never do"] <- 0
+bagay$boycotts[bagay$V86 == "Have done"] <- 1
+ftab(bagay$boycotts)
+ftab(bagay$V86)
+
+# V87. Attending peaceful demonstrations
+bagay$peaceful_march <- NA
+bagay$peaceful_march[bagay$V87 == "Might do" | bagay$V87 =="Would never do"] <- 0
+bagay$peaceful_march[bagay$V87 == "Have done"] <- 1
+ftab(bagay$peaceful_march)
+ftab(bagay$V87)
+
+# V88. Joining strikes
+bagay$strikes <- NA
+bagay$strikes[bagay$V88 == "Might do" | bagay$V88 =="Would never do"] <- 0
+bagay$strikes[bagay$V88 == "Have done"] <- 1
+ftab(bagay$strikes)
+ftab(bagay$V88)
+
+# V89. Any other act of protest?
+bagay$other_protest <- NA
+bagay$other_protest[bagay$V89 == "Might do" | bagay$V89 =="Would never do"] <- 0
+bagay$other_protest[bagay$V89 == "Have done"] <- 1
+ftab(bagay$other_protest)
+ftab(bagay$V89)
+#  good!
+```
+  
+<br>
+
+## Voting Habits  
+<br>
+
+**QUESTION**: _"When elections take place, do you vote always, usually or never? Please tell me separately for each of the following levels"_
+
++ Let's code it as follows:
+  + "always" or "usually" as 1; 
+  + anything else as 0. 
+  + No answer is NA
+
++ Be sure to code both variables: *national* and *local political* participation  
+
+<br>
+```{r voting, warning=FALSE, echo = TRUE, results='hide'}
+
+# QUESTION: ”When elections take place, do you vote always, usually or never? Please tell me separately for each of the following levels”
+
+# in R: code "always" or "usually" as 1; anything else as 0. No answer is NA
+
+# Be sure to code both variables: national and local political participation
+
+# V226. Local level 
+bagay$voted_local <- NA
+bagay$voted_local[bagay$V226 == "Never"] <- 0
+bagay$voted_local[bagay$V226 == "Always" | bagay$V226 =="Usually"] <- 1
+ftab(bagay$voted_local)
+ftab(bagay$V226)
+
+# V227. National level
+bagay$voted_natl <- NA
+bagay$voted_natl[bagay$V227 == "Never"] <- 0
+bagay$voted_natl[bagay$V227 == "Always" | bagay$V227 =="Usually"] <- 1
+ftab(bagay$voted_natl)
+ftab(bagay$V227)
+```
+
+<br>
+
+## Frequency of Religious Service Attendance
+
+“Apart from weddings and funerals, how often do you attend religious services these days?”  
+
+- 1 = once a week or more than once a week,  
+- 0 = once a month, only on special holy days, once a year, less often, never, practically never.   
+
+`V145. Apart from weddings and funerals, about how often do you attend religious services these days?`
+
+<br>
+```{r church-attendance, warning=FALSE, echo = TRUE, results='hide'}
+#
+ftab(bagay$V145)
+
+# V145 freq_relig_services 
+
+bagay$freq_relig_services  <- NA
+
+bagay$freq_relig_services[  bagay$V145 == "Once a month" 
+                  | bagay$V145 == "Only on special holy days" 
+                  | bagay$V145 == "Once a year" 
+                  | bagay$V145 == "Less often"
+                  | bagay$V145 == "Never, practically never"] <- 0
+
+bagay$freq_relig_services[bagay$V145 == "Once a week" | bagay$V145 =="More than once a week"] <- 1
+# 
+ftab(bagay$freq_relig_services)
+ftab(bagay$V145)
+# ok. 
+
+```
+
+## Religious Organization Membership
+
+“Now I am going to read off a list of voluntary organizations. For each organization, could you tell me whether you are an active member, an inactive member or not a member of that type of organization?”  
+
+- 1 = a member (active or inactive); 
+- 0 = not a member of that type of organization.
+
+<br>
+```{r relig-member, warning=FALSE, echo = TRUE, results='hide'}
+# V25. Church or religious organization
+ftab(bagay$V25)
+str(bagay$V25)
+# 
+bagay$relig_member <- NA  
+
+bagay$relig_member[bagay$V25 == "Not a member"] <- 0
+
+bagay$relig_member[bagay$V25 == "Inactive member" 
+                   | bagay$V25 =="Active member"] <- 1
+ftab(bagay$V25)
+ftab(bagay$relig_member)
+
+#  prelim. exploratory plot 0.2
+ggplot(bagay, aes(x=relig_member, na.rm = TRUE)) + 
+  geom_bar(fill=c("navy", "orange3")) + 
+  labs(x= "membership in a religious organization") +
+  theme_bw()
+#  ok
+```
+
+<br>
+
+## Frequency of Prayer
+
+`Question & Raw categories`:  
+
+__V146. Apart from weddings and funerals, about how often do you pray? (Code one answer):__
+
+- 1 Several times a day 
+- 2 Once a day
+-  3 Several times each week
+- 4 Only when attending religious services
+- 5 Only on special holy days
+- 6 Once a year
+- 7 Less often
+- 8 Never, practically never
+
+```{r prayer, echo=TRUE, warning=FALSE, results='hide'}
+# Recode:
+# 1 = once a day or Several times a day 
+# 0 = Several times each week, Only when attending religious services,Only on special holy days 
+
+# V146 freq_prayer 
+
+ftab(bagay$V146)
+# 
+bagay$freq_prayer  <- NA
+
+bagay$freq_prayer[  bagay$V146 == "Several times each week" 
+                  | bagay$V146 == "Only on special holy days" 
+                  | bagay$V146 == "Only when attending religious services" 
+                  | bagay$V146 == "Only on special holy days"
+                  | bagay$V146 == "Once a year"
+                  | bagay$V146 == "Less often than once a year"
+                  | bagay$V146 == "Never, practically never"] <- 0
+
+bagay$freq_prayer[bagay$V146 == "Once a day" 
+                          | bagay$V146 =="Several times a day"] <- 1
+# 
+ftab(bagay$freq_prayer)
+ftab(bagay$V146)
+# ok. 
+
+```
+<br>
+
+## Social Trust
+
+`“Generally speaking, would you say that most people can be trusted (1) or that you need to be very careful in dealing with people (0)?”`  
+
+`V24. `
+```{r trust, echo=TRUE, warning=FALSE, results='hide'}
+
+# V24. social trust 
+
+ftab(bagay$V24)
+# 
+bagay$soc_trust  <- NA
+
+bagay$soc_trust[  bagay$V24 == "Need to be very careful"] <- 0
+
+bagay$soc_trust[bagay$V24 == "Most people can be trusted"] <- 1
+# 
+ftab(bagay$soc_trust)
+ftab(bagay$V24)
+# ok. 
+
+```
+<br>
+
+## Tolerance  
+
+ “Here is a list of qualities that children can be encouraged to learn at home. Which, if any, do you consider to be especially important?”  
+ 
++ 1 = mentioned “tolerance and respect for people”;
++ 0 = did not mention.  
+
+`V16:  Tolerance and respect for other people `  
+
+<br>
+```{r tolerance, echo=TRUE, warning=FALSE, results='hide'}
+
+# V16. tolerance 
+
+ftab(bagay$V16)
+# 
+bagay$tolerance  <- NA
+
+bagay$tolerance[bagay$V16 == "Not mentioned"] <- 0
+
+bagay$tolerance[bagay$V16 == "Mentioned"] <- 1
+# 
+ftab(bagay$tolerance)
+ftab(bagay$V16)
+# ok. 
+
+```
+
+<br>
+
+## Female Gender:   
+
+_Sex by observation_   
+
++ 1 = female, 
++ 0 = male        
+
+`V240. (respondent’s sex by observation):
+`1 Male =======> becomes 0
+`2 Female =====> becomes 1
+
+<br>
+```{r female, echo=TRUE, warning=FALSE, results='hide'}
+
+# V240. female 
+
+ftab(bagay$V240)
+# 
+bagay$female  <- NA
+
+bagay$female[bagay$V240 == "Male"] <- 0
+
+bagay$female[bagay$V240 == "Female"] <- 1
+# 
+ftab(bagay$female)
+ftab(bagay$V240)
+# ok. 
+
+```
+
+<br>
+
+## Age (in years)  
+
+`V242. This means you are ____ years old (write in age in two digits).
+
+```{r age, echo=TRUE, warning=FALSE, results='hide'}
+
+# V242. age 
+# 
+str(bagay$V242)
+# integer  -- makes sense!
+# continuous discrete. 
+
+# Missingness ?
+sum(is.na(bagay$V242))
+#  0 --- great!
+
+bagay$age  <- bagay$V242
+
+summary(bagay$age)
+summary(bagay$V242)
+
+# ok. 
+
+```
+<br>
+
+## Income  
+
+`(preferred measure of SES)`
+
+`“On this card is a scale of incomes on which 1 indicates the lowest income decile’ and 10 the ‘highest income decile in your country. We would like to know in what group your household is. Please, specify the appropriate number, counting all wages, salaries, pensions, and other incomes that come in.”`
+
+`V239. On this card is an income scale on which 1 indicates the lowest income group and 10 the highest income group in your country. We would like to know in what group your household is. Please, specify the appropriate number, counting all wages, salaries, pensions and other incomes that come in. (Code one number):   
+
+<br>
+```{r v239, eval = FALSE, echo = TRUE}
+
+# Lowest group <=================================> Highest group 
+#     1 	  2	   3	 4  	 5  	6   	7   	8   	 9  	10 
+```
+<br>
+
+```{r income, echo=TRUE, warning=FALSE, results='hide'}
+
+# V239. Income
+
+ftab(bagay$V239)
+# 
+bagay$income_decile  <- NA
+bagay$income_decile[bagay$V239 == "Lower step"] <- 1
+bagay$income_decile[bagay$V239 == "second step"] <- 2
+bagay$income_decile[bagay$V239 == "Third step"] <- 3
+bagay$income_decile[bagay$V239 == "Fourth step"] <- 4
+bagay$income_decile[bagay$V239 == "Fifth step"] <- 5
+bagay$income_decile[bagay$V239 == "Sixth step"] <- 6
+bagay$income_decile[bagay$V239 == "Seventh step"] <- 7
+bagay$income_decile[bagay$V239 == "Eigth step"] <- 8
+bagay$income_decile[bagay$V239 == "Nineth step"] <- 9
+bagay$income_decile[bagay$V239 == "Tenth step"] <- 10
+
+# 
+str(bagay$income_decile)
+ftab(bagay$income_decile)
+ftab(bagay$V239)
+# ok. 
+
+```
+<br>
+
+
+
+
+
+
+
+
+
+
+
+<br>
+
+## NEXT ====> Education    
+
+“What is the highest educational level that you have attained?    
+
+- 1=low;    
+- 2=medium;   
+- 3=high.  
+
+**It’s very unclear how Sarkissian decided to code low/medium/high education here. She did not say how she coded it. Seems arbitrary. I can do my own, no ones cares, really!**    
+
+<br>
+
+`V248. What is the highest educational level that you have attained?   
+
+**NOTE**: if respondent indicates to be a student, code highest level s/he expects to complete)`   
+
+<br>
+
+1. No formal education
+2. Incomplete primary school
+3. Complete primary school
+4. Incomplete secondary school: technical/vocational type
+5. Complete secondary school: technical/vocational type
+6. Incomplete secondary: university-preparatory type
+7. Complete secondary: university-preparatory type
+8. Some university-level education, without degree
+9. University-level education, with degree
+
+<br>
+
+
+
+#### Save data again (at this stage) so that we don't need to read it from raw data each time:
+<br>
+```{r warning=FALSE, include = TRUE, echo = TRUE}
+save(bagay, file="WVS-Haiti2016.csv")
+
+#  for reproducibility's sake, let's record the session info:
+sessionInfo()
+```    
+<br>   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
